@@ -43,7 +43,7 @@ namespace Ip2
         //private variables
         private PlayerJump m_pJump;
         private PlayerWall m_pWall;
-        private PlayerMovement m_pMove;
+        private LayerMask m_surfaces;
         
         private Animator m_animator;  //the player's animator.
         private float m_gravityScale;  //gravity's scale.
@@ -64,9 +64,10 @@ namespace Ip2
             m_groundTransform = transform.FindChild("GroundCheckGO");
             m_pJump = GetComponent<PlayerJump>();
             m_pWall = GetComponent<PlayerWall>();
-            m_pMove = GetComponent<PlayerMovement>();
             m_animator = GetComponent<Animator>();
             m_gravityScale = m_rigidbody.gravityScale;
+
+            m_surfaces = LayerMask.GetMask("Surfaces");
 
             // Check which direction the player is facing based on the spriteDirection and flip when the spriteDirection is Left.
             if (m_direction == Dir.e_right)
@@ -120,7 +121,7 @@ namespace Ip2
             */
 
             //we now check if the player is on the ground
-            m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius);
+            m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius, m_surfaces);
 
             if (m_groundCheck)
             {
@@ -150,9 +151,9 @@ namespace Ip2
             if (!m_isOnGround)
             {
                 // Check if the player is wall jumping and reset the variable if the player is wall jumping.
-                //bool isWallJumping = playerWall && playerWall.wallJump.enabled && playerWall.isWallJumping;
-                //if (isWallJumping)
-                    //playerWall.isWallJumping = false;
+                bool m_isWallJumping = m_pWall && m_pWall.m_isWallJumping;
+                if (m_isWallJumping)
+                    m_pWall.m_isWallJumping = false;
             }
 
             // Set XSpeed.

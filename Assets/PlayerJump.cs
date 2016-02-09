@@ -9,9 +9,9 @@ namespace Ip2
         #region Member Variables
 
         //public variables
-        public bool m_canJump = false;
+        public bool m_canJump = true;
 
-        public float m_jumpForce = 400f;
+        public float m_jumpForce = 40f;
 
         //the following take care of jumping higher if the player holds the jump button
         public float m_JumpSpeed = 5f; //Y speed (not a force)
@@ -33,39 +33,48 @@ namespace Ip2
 
         void FixedUpdate() //used for everything physics
         {
-            if (m_canJump)
-            {
-                //set the Y speed.
-                float ySpd = (m_JumpSpeed);
-                //then we apply it to the player
-                m_player.SetYSpeed(ySpd);
+            //if (m_canJump)
+            //{
+            //    //set the Y speed.
+            //    float ySpd = (m_JumpSpeed);
+            //    //then we apply it to the player
+            //    m_player.SetYSpeed(ySpd);
 
-            }
-            else if (Input.GetButton("Jump") && m_airTime > 0) //if we are still jumping but we can go higher
+            //}
+            //else
+            if (Input.GetButton("Jump") && m_canJump) //if we are still jumping but we can go higher
             {
-                m_airTime -= Time.deltaTime;
+                if (m_airTime > 0)
+                {
+                    m_airTime -= Time.deltaTime;
+                    //Debug.Log(m_airTime);
 
-                //finally we set the Y force
-                m_player.m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
-            }
-            else //we are done jumping
-            {
-                m_airTime = m_jumpTime;
-                m_canJump = false; //we reset this later on
-                m_isStartingToJump = false;
+                    //finally we set the Y force
+                    m_player.m_rigidbody.AddForce(new Vector2(0f, m_jumpForce));
+                }
+                else //we are done jumping
+                {
+                    m_canJump = false; //we reset this later on
+                    m_isStartingToJump = false;
+                }
             }
         }
         // Update is called once per frame
         void Update()
         {
             //we take care of jumping here
-            if (!m_canJump && Input.GetButtonDown("Jump"))
+            if (m_canJump && Input.GetButtonDown("Jump"))
             {
                 if (m_player.m_isOnGround) //check if working on walls
                 {
                     //we start jumping
                     Jump();
                 }
+            }
+            if (m_player.m_isOnGround)
+            {
+                m_canJump = true;
+                m_airTime = m_jumpTime;
             }
         }
 
