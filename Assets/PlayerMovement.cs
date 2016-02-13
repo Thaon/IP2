@@ -44,6 +44,11 @@ namespace Ip2
                     m_player.SetXSpeed(0);
                 }
             }
+            else
+            {
+                Debug.Log("is on wall");
+                m_player.SetXSpeed(0);
+            }
         }
     }
 }

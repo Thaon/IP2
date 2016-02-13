@@ -40,10 +40,12 @@ namespace Ip2
         public Dir m_direction;
         public float m_groundCheckRadius = 0.12f;
 
+        //these are the collision layers
+        public LayerMask m_surfaces;
+
         //private variables
         private PlayerJump m_pJump;
         private PlayerWall m_pWall;
-        private LayerMask m_surfaces;
         
         private Animator m_animator;  //the player's animator.
         private float m_gravityScale;  //gravity's scale.
@@ -145,19 +147,23 @@ namespace Ip2
         }
 
         //we now take care of movement
-
         public void SetXSpeed(float xSpd)
         {
             if (!m_isOnGround)
             {
                 // Check if the player is wall jumping and reset the variable if the player is wall jumping.
-                bool m_isWallJumping = m_pWall && m_pWall.m_isWallJumping;
+                bool m_isWallJumping = m_pWall.m_isWallJumping;
                 if (m_isWallJumping)
                     m_pWall.m_isWallJumping = false;
             }
-
-            // Set XSpeed.
-            m_rigidbody.velocity = new Vector2(xSpd, m_rigidbody.velocity.y);
+            if (m_isOnWall)
+            {
+                m_rigidbody.velocity = new Vector2(0,0);
+                Debug.Log("on wall");
+            }
+            else
+                // Set XSpeed.
+                m_rigidbody.velocity = new Vector2(xSpd, m_rigidbody.velocity.y);
         }
 
         public void SetYSpeed(float ySpd)
@@ -176,12 +182,7 @@ namespace Ip2
         public void Fall() //setter
         {
             m_isFalling = true;
-            m_animator.SetTrigger("Falling");
-        }
-
-        public void OnWall(bool isOnWall) //setter
-        {
-            m_isOnWall = isOnWall;
+            //m_animator.SetTrigger("Falling");
         }
 
         //we now take care of the animator states for the wall jumping

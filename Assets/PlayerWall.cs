@@ -34,6 +34,9 @@ namespace Ip2
         public WallRunState m_wallRun;
         public WallSlideState m_wallSlide;
 
+        public GameObject m_leftWallCHeck;
+        public GameObject m_rightWallCHeck;
+
         //private variables
         private Player m_player;
         private float m_wallRunTimer;  //how long the player can wall run
@@ -57,6 +60,8 @@ namespace Ip2
         void Start()
         {
             m_player = GetComponent<Player>();
+            m_wallRun = new WallRunState();
+            m_wallSlide = new WallSlideState();
         }
 
         void FixedUpdate() //used for everything physics
@@ -113,9 +118,15 @@ namespace Ip2
             //we now check if we are hitting a wall
             if (!m_player.m_isOnGround)
             {
-                // The player is facing a wall if a linecast between the 'frontCheck' objects hits anything on the wall layer. REVIEW!
-                Collider2D hitWall = Physics2D.OverlapArea(m_player.transform.position, m_player.transform.position);
-                m_isFacingAWall = hitWall != null;
+                // The player is facing a wall if a linecast between the 'wallCheck' objects hits anything on the wall layer. REVIEW!
+
+                RaycastHit2D hitLWall = Physics2D.Linecast(m_player.transform.position, m_leftWallCHeck.transform.position, m_player.m_surfaces);
+                RaycastHit2D hitRWall = Physics2D.Linecast(m_player.transform.position, m_rightWallCHeck.transform.position, m_player.m_surfaces);
+                Debug.DrawLine(m_player.transform.position, m_leftWallCHeck.transform.position, Color.red);
+                Debug.DrawLine(m_player.transform.position, m_rightWallCHeck.transform.position, Color.red);
+
+                if (hitLWall || hitRWall)//if we are hitting any wall, we start wallrunning (if we are not falling)
+                    m_isFacingAWall = true;
 
                 if (!m_player.m_isFalling)
                 {
@@ -126,6 +137,8 @@ namespace Ip2
                             if (!m_player.m_isOnWall)
                             {
                                 m_player.SetStuckToWall(true);
+                                m_player.SetXSpeed(0);
+                                Debug.Log("sticking");
 
                                 //reset the timers
                                 m_wallStickTimer = m_wallStickTime;
@@ -159,8 +172,10 @@ namespace Ip2
                 else
                 {
                     if (m_player.m_isOnWall && m_player.m_hAxis == 0)
+                    {
                         Fall();
-                    Unstick();
+                        Unstick();
+                    }
                 }
             }
 
@@ -168,7 +183,7 @@ namespace Ip2
 
             if(m_player.m_isOnGround)
             {
-                Unstick();
+                //Unstick();
             }
         }
 
@@ -220,6 +235,7 @@ namespace Ip2
                 {
                     m_wallStickTimer -= Time.deltaTime;
                     m_isStuckToWall = true;
+                    Debug.Log(m_wallStickTime);
 
                     // When jumping while being stuck, make sure the jumps are reset and the player jumps.
                     if (Input.GetButtonDown("Jump"))
@@ -238,8 +254,10 @@ namespace Ip2
             else
             {
                 if (m_player.m_isOnWall && m_player.m_hAxis == 0)
+                {
                     Fall();
-                Unstick();
+                    Unstick();
+                }
             }
         }
 
@@ -256,8 +274,10 @@ namespace Ip2
 
         void Unstick()
         {
+            Debug.Log("unsticking");
             // Make the player no longer stuck to the wall.
             m_player.SetStuckToWall(false);
+            m_isFacingAWall = false;
 
             // Reset wall running properties.
             if (!m_isWallRunning && !m_wallRun.m_canRunForever)
