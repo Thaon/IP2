@@ -17,7 +17,7 @@ namespace Ip2
         public float m_JumpSpeed = 5f; //Y speed (not a force)
         public float m_jumpTime = 0.3f;
         public float m_addedJumpForce = 20f;
-        private bool m_isStartingToJump = false;
+        public bool m_isJumping = false;
         private float m_airTime; //used to check how long the player can stay in the air
 
         //private variables
@@ -42,7 +42,7 @@ namespace Ip2
 
             //}
             //else
-            if (Input.GetButton("Jump") && m_canJump) //if we are still jumping but we can go higher
+            if (Input.GetButton("Jump") && m_isJumping) //if we are still jumping but we can go higher
             {
                 if (m_airTime > 0)
                 {
@@ -54,8 +54,7 @@ namespace Ip2
                 }
                 else //we are done jumping
                 {
-                    m_canJump = false; //we reset this later on
-                    m_isStartingToJump = false;
+                    m_isJumping = false;
                 }
             }
         }
@@ -73,6 +72,7 @@ namespace Ip2
             }
             if (m_player.m_isOnGround)
             {
+                //m_isJumping = false;
                 m_canJump = true;
                 m_airTime = m_jumpTime;
             }
@@ -80,8 +80,14 @@ namespace Ip2
 
         public void Jump()
         {
-            m_isStartingToJump = true;
+            m_isJumping = true;
             m_player.m_isJumping = true;
+            m_airTime = m_jumpTime;
+            m_canJump = false;
+        }
+
+        public void ResetAirTime()
+        {
             m_airTime = m_jumpTime;
         }
     }

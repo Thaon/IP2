@@ -119,10 +119,23 @@ namespace Ip2
             if (!m_player.m_isOnGround)
             {
                 // The player is facing a wall if a linecast between the 'wallCheck' objects hits anything on the wall layer. REVIEW!
+                //first we place the wallChecks in the correct position
+
+                if ((m_player.m_facingDir && m_leftWallCHeck.transform.position.x > m_player.transform.position.x) || !m_player.m_facingDir && m_rightWallCHeck.transform.position.x < m_player.transform.position.x)
+                {
+                    //flip the wallChecks
+                    Vector3 t1, t2;
+                    t1 = m_leftWallCHeck.transform.position;
+                    t2 = m_rightWallCHeck.transform.position;
+
+                    m_rightWallCHeck.transform.position = t1;
+                    m_leftWallCHeck.transform.position = t2;
+                }
+
                 RaycastHit2D hitLWall = Physics2D.Linecast(m_player.transform.position, m_leftWallCHeck.transform.position, m_player.m_surfaces);
                 RaycastHit2D hitRWall = Physics2D.Linecast(m_player.transform.position, m_rightWallCHeck.transform.position, m_player.m_surfaces);
                 Debug.DrawLine(m_player.transform.position, m_leftWallCHeck.transform.position, Color.red);
-                Debug.DrawLine(m_player.transform.position, m_rightWallCHeck.transform.position, Color.red);
+                Debug.DrawLine(m_player.transform.position, m_rightWallCHeck.transform.position, Color.green);
 
                 if (hitLWall || hitRWall)//if we are hitting any wall, we start wallrunning (if we are not falling)
                 {
@@ -133,11 +146,11 @@ namespace Ip2
                 {
                     if (m_isFacingAWall)
                     {
-                        m_isFacingAWall = false;
-                        if (hitRWall)
-                            Debug.Log("Facing dir right = " + m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit right wall = " + hitRWall.collider.name);
-                        if (hitLWall)
-                            Debug.Log("Facing dir left = " + m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit left wall = " + hitLWall.collider.name);
+                        //m_isFacingAWall = false;
+                        //if (hitRWall)
+                            //Debug.Log("Facing dir right = " + m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit right wall = " + hitRWall.collider.name);
+                        //if (hitLWall)
+                            //Debug.Log("Facing dir left = " + !m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit left wall = " + hitLWall.collider.name);
 
                         if ((m_player.m_facingDir && m_player.m_hAxis > 0 && hitRWall) || (!m_player.m_facingDir && m_player.m_hAxis < 0 && hitLWall)) //if the player is moving towards the wall, we stick to it
                         {
@@ -151,45 +164,46 @@ namespace Ip2
                                 //reset the timers
                                 m_wallStickTimer = m_wallStickTime;
                                 m_wallIdleTimer = m_freeFromWallTime;
-                            }
 
-                            WallRunning();
+                                if (!m_isWallRunning && m_wallRunTimer > 0)
+                                    WallRunning();
 
-                            if (!m_isWallRunning)
-                            {
-                                WallSliding();
+                                if (!m_isWallRunning && m_wallRunTimer <= 0 && m_wallSlideTimer > 0)
+                                {
+                                    WallSliding();
+                                }
+                                else //if not running or sliding
+                                {
+                                    Debug.Log("starting unstick timer 1");
+                                    StartWallUnstickTimer();
+                                }
+                                // Or else if the player can wall jump...
                             }
-                            else //if not running or sliding
-                            {
-                                Debug.Log("starting unstick timer 1");
-                                StartWallUnstickTimer();
-                            }
-                            // Or else if the player can wall jump...
                         }
                         else //the player is not moving torwards the wall
                         {
                             //Debug.Log("starting unstick timer 2");
                             //StartWallUnstickTimer();
-                            WallSliding();
+                            Unstick();
                         }
                     }
 
-                    // Or else if the player can wall jump...
+                    // Or else if the player can wall jump... REVIEW!!!
                 }
-                else if (m_player.m_isOnWall)
+                //else if (m_player.m_isOnWall)
+                //{
+                //    WallJumping();
+                //}
+                else if (m_player.m_isOnWall) //we are sliding down
                 {
-                    WallJumping();
+                    WallSliding();
+                    Debug.Log("sliding down");
                 }
                 else if (m_player.m_isOnWall && m_player.m_hAxis == 0)
                 {
                     Fall();
                     Debug.Log("unsticking cause axis = 0");
                     Unstick();
-                }
-                else if (m_player.m_isOnWall && m_player.m_isFalling) //we are sliding down
-                {
-                    WallSliding();
-                    Debug.Log("sliding down");
                 }
             }
 
@@ -206,6 +220,7 @@ namespace Ip2
             // if we are still allowed to wall run, we do
             if (m_wallRun.m_canRunForever || (!m_wallRun.m_canRunForever && m_wallRunTimer > 0))
             {
+                Debug.Log("Wall running!");
                 if (!m_wallRun.m_canRunForever)
                 {
                     m_wallRunTimer -= Time.deltaTime;
@@ -214,8 +229,14 @@ namespace Ip2
                     {
                         m_slowdownSpeed -= m_slowdown; //we slow down if we can't run forever
                     }
+                    m_player.SetYSpeed(m_wallRun.m_wallRunSpeed + m_slowdownSpeed);
                 }
                 m_isWallRunning = true;
+
+                if (m_slowdownSpeed <= 0 || m_wallRunTimer <= 0)
+                {
+                    m_isWallRunning = false;
+                }
             }
         }
 
@@ -232,6 +253,8 @@ namespace Ip2
                     m_speedupSpeed += m_speedup;
                 }
                 m_isWallSliding = true;
+
+                m_player.SetYSpeed(m_wallSlide.m_wallSlideSpeed + m_speedupSpeed);
             }
             else
             {
@@ -255,6 +278,8 @@ namespace Ip2
                     // When jumping while being stuck, make sure the jumps are reset and the player jumps.
                     if (Input.GetButtonDown("Jump"))
                     {
+                        Debug.Log("Wall jumping initiated");
+                        Unstick();
                         WallJump();
                     }
                 }
@@ -283,7 +308,7 @@ namespace Ip2
             m_isStuckToWall = false;
             m_isWallRunning = false;
             m_isWallSliding = false;
-            Debug.Log("unsticking cause of walljump");
+            Debug.Log("walljumping");
             Unstick();
             m_isWallJumping = true;
 
@@ -320,6 +345,11 @@ namespace Ip2
 
             // Reset isWallJumping.
             m_isWallJumping = false;
+            //reset wall jump timer
+            m_wallStickTimer = m_wallStickTime;
+
+            //reset the jump timer
+            m_player.ResetJumpTimer();
         }
 
         void Fall()

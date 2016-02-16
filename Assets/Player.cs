@@ -126,6 +126,16 @@ namespace Ip2
             //we now check if the player is on the ground
             m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius, m_surfaces);
 
+            //we then detect if he's falling
+            if (m_rigidbody.velocity.y < 0)
+            {
+                m_isFalling = true;
+            }
+            else
+            {
+                m_isFalling = false;
+            }
+
             if (m_groundCheck)
             {
                 m_isOnGround = true;
@@ -230,6 +240,11 @@ namespace Ip2
         public void SetStuckToWall(bool value)
         {
             m_isOnWall = value;
+        }
+
+        public void ResetJumpTimer()
+        {
+            m_pJump.ResetAirTime();
         }
     }
 }
