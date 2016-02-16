@@ -30,7 +30,8 @@ namespace Ip2
                 if (m_player.m_hAxis * m_player.m_rigidbody.velocity.x < m_moveSpeed)
                 {
                     //add a force to the player.
-                    m_player.m_rigidbody.AddForce(transform.rotation * Vector2.right * m_player.m_hAxis * m_moveSpeed, ForceMode2D.Impulse); // * m_player.GetMovementForce(moveForce)
+                    //m_player.m_rigidbody.AddForce(transform.rotation * Vector2.right * m_player.m_hAxis * m_moveSpeed, ForceMode2D.Impulse); // * m_player.GetMovementForce(moveForce)
+                    m_player.SetXSpeed(m_player.m_hAxis * m_moveSpeed);
                 }
                 // If the player's horizontal velocity is greater than the speed, then we set the player's velocity to the speed in the x axis.
                 if (Mathf.Abs(m_player.m_rigidbody.velocity.x) > m_moveSpeed)
@@ -38,8 +39,12 @@ namespace Ip2
                     m_player.SetXSpeed(Mathf.Sign(m_player.m_rigidbody.velocity.x) * m_moveSpeed);
                 }
 
-                //if the Horizontal axis is 0, we stop
-                if (m_player.m_hAxis == 0)
+                //update the facing direction
+                if (m_player.m_hAxis < 0)
+                    m_player.m_facingDir = false; //we are going left
+                else if (m_player.m_hAxis > 0)
+                    m_player.m_facingDir = true; //we are going right
+                else //if the Horizontal axis is 0, we stop
                 {
                     m_player.SetXSpeed(0);
                 }
@@ -47,7 +52,6 @@ namespace Ip2
             else
             {
                 Debug.Log("is on wall");
-                m_player.SetXSpeed(0);
             }
         }
     }

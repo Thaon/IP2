@@ -93,6 +93,7 @@ namespace Ip2
             if (m_isOnWall) //self explanatory
             {
                 m_rigidbody.gravityScale = 0;
+                Debug.Log("gravity is 0");
             }
             else
             {
@@ -155,15 +156,22 @@ namespace Ip2
                 bool m_isWallJumping = m_pWall.m_isWallJumping;
                 if (m_isWallJumping)
                     m_pWall.m_isWallJumping = false;
-            }
-            if (m_isOnWall)
-            {
-                m_rigidbody.velocity = new Vector2(0,0);
-                Debug.Log("on wall");
+
+                if (m_isOnWall)
+                {
+                    //m_rigidbody.velocity = new Vector2(0,0);
+                    Debug.Log("on wall");
+                }
+                else
+                {
+                    m_rigidbody.velocity = new Vector2(xSpd, m_rigidbody.velocity.y);
+                }
             }
             else
+            {
                 // Set XSpeed.
                 m_rigidbody.velocity = new Vector2(xSpd, m_rigidbody.velocity.y);
+            }
         }
 
         public void SetYSpeed(float ySpd)

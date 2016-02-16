@@ -110,7 +110,7 @@ namespace Ip2
             {
                 m_slowdownSpeed = (Time.deltaTime / m_wallRun.m_wallRunTime) * m_wallRun.m_wallRunSpeed;
             }
-            if (m_wallSlide.m_wallSlideBuildup)
+            if (m_wallSlide.m_wallSlideBuildup && !m_wallSlide.m_canSlideForever)
             {
                 m_speedupSpeed = (Time.deltaTime / m_wallSlide.m_wallSlideTime) * m_wallSlide.m_wallSlideSpeed;
             }
@@ -119,26 +119,34 @@ namespace Ip2
             if (!m_player.m_isOnGround)
             {
                 // The player is facing a wall if a linecast between the 'wallCheck' objects hits anything on the wall layer. REVIEW!
-
                 RaycastHit2D hitLWall = Physics2D.Linecast(m_player.transform.position, m_leftWallCHeck.transform.position, m_player.m_surfaces);
                 RaycastHit2D hitRWall = Physics2D.Linecast(m_player.transform.position, m_rightWallCHeck.transform.position, m_player.m_surfaces);
                 Debug.DrawLine(m_player.transform.position, m_leftWallCHeck.transform.position, Color.red);
                 Debug.DrawLine(m_player.transform.position, m_rightWallCHeck.transform.position, Color.red);
 
                 if (hitLWall || hitRWall)//if we are hitting any wall, we start wallrunning (if we are not falling)
+                {
                     m_isFacingAWall = true;
+                }
 
                 if (!m_player.m_isFalling)
                 {
                     if (m_isFacingAWall)
                     {
-                        if ((m_player.m_facingDir && m_player.m_hAxis > 0) || (!m_player.m_facingDir && m_player.m_hAxis < 0)) //if the player is moving towards the wall, we stick to it
+                        m_isFacingAWall = false;
+                        if (hitRWall)
+                            Debug.Log("Facing dir right = " + m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit right wall = " + hitRWall.collider.name);
+                        if (hitLWall)
+                            Debug.Log("Facing dir left = " + m_player.m_facingDir + ", Axis value = " + m_player.m_hAxis + ", Hit left wall = " + hitLWall.collider.name);
+
+                        if ((m_player.m_facingDir && m_player.m_hAxis > 0 && hitRWall) || (!m_player.m_facingDir && m_player.m_hAxis < 0 && hitLWall)) //if the player is moving towards the wall, we stick to it
                         {
+                            //Debug.Log(m_player.m_isOnWall);
                             if (!m_player.m_isOnWall)
                             {
                                 m_player.SetStuckToWall(true);
-                                m_player.SetXSpeed(0);
-                                Debug.Log("sticking");
+                                //m_player.SetXSpeed(0);
+                                //Debug.Log("sticking");
 
                                 //reset the timers
                                 m_wallStickTimer = m_wallStickTime;
@@ -153,13 +161,16 @@ namespace Ip2
                             }
                             else //if not running or sliding
                             {
+                                Debug.Log("starting unstick timer 1");
                                 StartWallUnstickTimer();
                             }
                             // Or else if the player can wall jump...
                         }
-                        else
+                        else //the player is not moving torwards the wall
                         {
-                            StartWallUnstickTimer();
+                            //Debug.Log("starting unstick timer 2");
+                            //StartWallUnstickTimer();
+                            WallSliding();
                         }
                     }
 
@@ -169,13 +180,16 @@ namespace Ip2
                 {
                     WallJumping();
                 }
-                else
+                else if (m_player.m_isOnWall && m_player.m_hAxis == 0)
                 {
-                    if (m_player.m_isOnWall && m_player.m_hAxis == 0)
-                    {
-                        Fall();
-                        Unstick();
-                    }
+                    Fall();
+                    Debug.Log("unsticking cause axis = 0");
+                    Unstick();
+                }
+                else if (m_player.m_isOnWall && m_player.m_isFalling) //we are sliding down
+                {
+                    WallSliding();
+                    Debug.Log("sliding down");
                 }
             }
 
@@ -221,6 +235,7 @@ namespace Ip2
             }
             else
             {
+                Debug.Log("wall sliding");
                 StartWallUnstickTimer();
             }
         }
@@ -247,6 +262,7 @@ namespace Ip2
                 {
                     // Make the player fall down when the timer is completed.
                     Unstick();
+                    Debug.Log("unsticking cause timer expired (walljumping)");
                     Fall();
                 }
                 // Or else make the player fall down (when not moving) and then unstick the player.
@@ -256,6 +272,7 @@ namespace Ip2
                 if (m_player.m_isOnWall && m_player.m_hAxis == 0)
                 {
                     Fall();
+                    Debug.Log("unsticking cause axis = 0 (walljumping)");
                     Unstick();
                 }
             }
@@ -266,6 +283,7 @@ namespace Ip2
             m_isStuckToWall = false;
             m_isWallRunning = false;
             m_isWallSliding = false;
+            Debug.Log("unsticking cause of walljump");
             Unstick();
             m_isWallJumping = true;
 
@@ -274,7 +292,6 @@ namespace Ip2
 
         void Unstick()
         {
-            Debug.Log("unsticking");
             // Make the player no longer stuck to the wall.
             m_player.SetStuckToWall(false);
             m_isFacingAWall = false;
@@ -325,6 +342,7 @@ namespace Ip2
             else
             {
                 Unstick();
+                Debug.Log("unsticking from timer coroutine");
                 Fall();
             }
         }
