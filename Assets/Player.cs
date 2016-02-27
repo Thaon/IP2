@@ -47,14 +47,14 @@ namespace Ip2
         private PlayerJump m_pJump;
         private PlayerWall m_pWall;
         
-        private Animator m_animator;  //the player's animator.
+        private Animator m_animator;  //the player's animator. IMPORTANT: replace this with the spine runtime as soon as possible
         private float m_gravityScale;  //gravity's scale.
         private bool m_isDead = false;  //checks if the player is dead.
 
         //the following are used in conjunction with the Animator to swap between states
         private bool m_isWallSliding = false;
-        private bool m_isWallRunning = false;
-        private bool m_isWallJumping = false;
+        //private bool m_isWallRunning = false; REMOVED FOR NOW
+        private bool m_isWallJumping = false; 
 
         #endregion
 
@@ -219,16 +219,16 @@ namespace Ip2
         public void SetWallAnimation(bool running, bool sliding, bool jumping)
         {
 
-            if (((m_isWallRunning && !running) || (m_isWallSliding && !sliding) || (m_isWallJumping && !jumping)) && !running && !sliding && !jumping)
+            if (!running || !sliding || !jumping) //double check this
             {
                 m_animator.SetTrigger("actionsPerformed");
             }
-
-            if (running && !m_isWallRunning)
-            {
-                m_animator.SetTrigger("WallRun");
-            }
-
+            /*
+                if (running && !m_isWallRunning)
+                {
+                    m_animator.SetTrigger("WallRun");
+                }
+            */
             if (sliding && !m_isWallSliding)
             {
                 m_animator.SetTrigger("WallSlide");
@@ -240,11 +240,11 @@ namespace Ip2
             }
 
             // used to keep track of the player's state.
-            m_isWallRunning = running;
+            //m_isWallRunning = running;
             m_isWallSliding = sliding;
             m_isWallJumping = jumping;
 
-            m_animator.SetBool("wallRunning", running);
+            //m_animator.SetBool("wallRunning", running);
             m_animator.SetBool("wallSliding", sliding);
             m_animator.SetBool("wallJumping", jumping);
         }
