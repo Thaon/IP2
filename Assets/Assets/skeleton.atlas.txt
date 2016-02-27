@@ -1,0 +1,111 @@
+
+skeleton.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+anim-mock-up_0000_head
+  rotate: false
+  xy: 2, 69
+  size: 175, 185
+  orig: 175, 185
+  offset: 0, 0
+  index: -1
+anim-mock-up_0001_rear-arm-hand
+  rotate: true
+  xy: 397, 226
+  size: 28, 30
+  orig: 28, 30
+  offset: 0, 0
+  index: -1
+anim-mock-up_0002_rear-arm-lower
+  rotate: true
+  xy: 303, 194
+  size: 30, 85
+  orig: 30, 85
+  offset: 0, 0
+  index: -1
+anim-mock-up_0005_rear-leg-lower
+  rotate: true
+  xy: 303, 194
+  size: 30, 85
+  orig: 30, 85
+  offset: 0, 0
+  index: -1
+anim-mock-up_0009_front-leg-lower
+  rotate: true
+  xy: 303, 194
+  size: 30, 85
+  orig: 30, 85
+  offset: 0, 0
+  index: -1
+anim-mock-up_0003_rear-arm-upper
+  rotate: true
+  xy: 84, 33
+  size: 34, 90
+  orig: 34, 90
+  offset: 0, 0
+  index: -1
+anim-mock-up_0004_rear-leg-foot
+  rotate: true
+  xy: 222, 98
+  size: 57, 30
+  orig: 57, 30
+  offset: 0, 0
+  index: -1
+anim-mock-up_0008_frobt-leg-foot
+  rotate: true
+  xy: 222, 98
+  size: 57, 30
+  orig: 57, 30
+  offset: 0, 0
+  index: -1
+anim-mock-up_0006_rear-leg-upper
+  rotate: true
+  xy: 303, 226
+  size: 28, 92
+  orig: 28, 92
+  offset: 0, 0
+  index: -1
+anim-mock-up_0010_front-leg-upper
+  rotate: true
+  xy: 303, 226
+  size: 28, 92
+  orig: 28, 92
+  offset: 0, 0
+  index: -1
+anim-mock-up_0007_body-upper
+  rotate: false
+  xy: 179, 157
+  size: 82, 97
+  orig: 82, 97
+  offset: 0, 0
+  index: -1
+anim-mock-up_0008_body-lower
+  rotate: false
+  xy: 2, 13
+  size: 80, 54
+  orig: 80, 54
+  offset: 0, 0
+  index: -1
+anim-mock-up_0011_front-arm-hand
+  rotate: true
+  xy: 84, 2
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+anim-mock-up_0012_front-arm-lower
+  rotate: false
+  xy: 179, 75
+  size: 41, 80
+  orig: 41, 80
+  offset: 0, 0
+  index: -1
+anim-mock-up_0013_front-arm-upper
+  rotate: false
+  xy: 263, 166
+  size: 38, 88
+  orig: 38, 88
+  offset: 0, 0
+  index: -1

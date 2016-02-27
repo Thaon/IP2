@@ -66,7 +66,7 @@ namespace Ip2
             m_groundTransform = transform.FindChild("GroundCheckGO");
             m_pJump = GetComponent<PlayerJump>();
             m_pWall = GetComponent<PlayerWall>();
-            m_animator = GetComponent<Animator>();
+            m_animator = transform.FindChild("SpineSpriteGO").GetComponent<Animator>();
             m_gravityScale = m_rigidbody.gravityScale;
 
             m_surfaces = LayerMask.GetMask("Surfaces");
@@ -79,7 +79,7 @@ namespace Ip2
             else
             {
                 m_facingDir = false; //meaning left... so we switch it
-                m_facingDir = !m_facingDir;
+                //m_facingDir = !m_facingDir;
 
                 //then we flip the sprite on the X axis multiplying the scale by -1
                 Vector3 scale = transform.localScale;
@@ -108,20 +108,40 @@ namespace Ip2
             m_hAxis= Input.GetAxis("Horizontal");
 
             //then we set all the various animator values
-            /*
-            animator.SetBool("grounded", grounded);
-            animator.SetBool("walking", walking);
-            animator.SetBool("crouching", crouching);
-            animator.SetBool("sliding", sliding);
-            animator.SetBool("dashing", dashing);
-            animator.SetBool("falling", falling);
-            animator.SetBool("wall", stuckToWall);
-            animator.SetBool("onLadder", onLadder);
-            animator.SetBool("jumpingThrough", jumpingThrough);
-            animator.SetFloat("horizontal", Mathf.Abs(hor));
-            animator.SetFloat("xSpeed", Mathf.Abs(rigidbody.velocity.x));
-            animator.SetFloat("ySpeed", rigidbody.velocity.y);
-            */
+            if (m_hAxis != 0)
+            {
+                m_animator.SetBool("moving", true);
+                if (m_hAxis < 0 && m_facingDir)
+                {
+                    m_facingDir = false;
+                    Vector3 scale = transform.localScale;
+                    scale.x *= -1;
+                    transform.localScale = scale;
+                }
+                else if (m_hAxis > 0 && !m_facingDir)
+                {
+                    m_facingDir = true;
+                    Vector3 scale = transform.localScale;
+                    scale.x *= -1;
+                    transform.localScale = scale;
+                }
+                //we now chack if the player turned around and if so we mirror the sprite
+                //if ((m_hAxis > 0 && !m_facingDir) || (m_hAxis < 0))
+                //{
+                //    //see above for explanation
+                //    Vector3 scale = transform.localScale;
+                //    scale.x *= -1;
+                //    transform.localScale = scale;
+                //}
+            }
+            else
+                m_animator.SetBool("moving", false);
+
+            m_animator.SetBool("jumping", m_isJumping);
+            m_animator.SetBool("falling", m_isFalling);
+            m_animator.SetBool("wallSliding", m_isOnWall);
+            m_animator.SetBool("onGround", m_isOnGround);
+
 
             //we now check if the player is on the ground
             m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius, m_surfaces);
@@ -147,14 +167,6 @@ namespace Ip2
 				m_isOnGround = false;
 			}
 
-            //we now chack if the player turned around and if so we mirror the sprite
-            if ((m_hAxis > 0 && !m_facingDir) || (m_hAxis < 0 && m_facingDir))
-            {
-                //see above for explanation
-                Vector3 scale = transform.localScale;
-                scale.x *= -1;
-                transform.localScale = scale;
-            }
         }
 
         //we now take care of movement

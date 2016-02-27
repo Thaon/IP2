@@ -40,11 +40,11 @@ namespace Ip2
                 }
 
                 //update the facing direction
-                if (m_player.m_hAxis < 0)
-                    m_player.m_facingDir = false; //we are going left
-                else if (m_player.m_hAxis > 0)
-                    m_player.m_facingDir = true; //we are going right
-                else //if the Horizontal axis is 0, we stop
+                //if (m_player.m_hAxis < 0)
+                //    m_player.m_facingDir = false; //we are going left
+                //else if (m_player.m_hAxis > 0)
+                //    m_player.m_facingDir = true; //we are going right
+                if (m_player.m_hAxis == 0) //if the Horizontal axis is 0, we stop
                 {
                     m_player.SetXSpeed(0);
                 }
