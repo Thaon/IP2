@@ -54,119 +54,150 @@ namespace Ip2
         //the following are used in conjunction with the Animator to swap between states
         private bool m_isWallSliding = false;
         //private bool m_isWallRunning = false; REMOVED FOR NOW
-        private bool m_isWallJumping = false; 
+        private bool m_isWallJumping = false;
+
+        private GameObject m_respawn;
+
+        public bool m_isTheDictator;
 
         #endregion
 
         // Use this for initialization
         void Start()
         {
-            //getting the required data and GameObjects
-            m_rigidbody = GetComponent<Rigidbody2D>();
-            m_groundTransform = transform.FindChild("GroundCheckGO");
-            m_pJump = GetComponent<PlayerJump>();
-            m_pWall = GetComponent<PlayerWall>();
-            m_animator = transform.FindChild("SpineSpriteGO").GetComponent<Animator>();
-            m_gravityScale = m_rigidbody.gravityScale;
-
-            m_surfaces = LayerMask.GetMask("Surfaces");
-
-            // Check which direction the player is facing based on the spriteDirection and flip when the spriteDirection is Left.
-            if (m_direction == Dir.e_right)
+            if (!m_isTheDictator)
             {
-                m_facingDir = true; //meaning, right
+                //generate the respawn object
+                m_respawn = new GameObject("RespawnGO");
+                m_respawn.transform.position = transform.position;
+
+                //getting the required data and GameObjects
+                m_rigidbody = GetComponent<Rigidbody2D>();
+                m_groundTransform = transform.FindChild("GroundCheckGO");
+                m_pJump = GetComponent<PlayerJump>();
+                m_pWall = GetComponent<PlayerWall>();
+                m_animator = transform.FindChild("SpineSpriteGO").GetComponent<Animator>();
+                m_gravityScale = m_rigidbody.gravityScale;
+
+                m_surfaces = LayerMask.GetMask("Surfaces");
+
+                // Check which direction the player is facing based on the spriteDirection and flip when the spriteDirection is Left.
+                if (m_direction == Dir.e_right)
+                {
+                    m_facingDir = true; //meaning, right
+                }
+                else
+                {
+                    m_facingDir = false; //meaning left... so we switch it
+                                         //m_facingDir = !m_facingDir;
+
+                    //then we flip the sprite on the X axis multiplying the scale by -1
+                    Vector3 scale = transform.localScale;
+                    scale.x *= -1;
+                    transform.localScale = scale;
+                }
             }
             else
             {
-                m_facingDir = false; //meaning left... so we switch it
-                //m_facingDir = !m_facingDir;
+                GetComponent<SpriteRenderer>().enabled = false;
+                //GetComponent<Rigidbody2D>().enabled = false;
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<PlayerMovement>().enabled = false;
+                GetComponent<PlayerJump>().enabled = false;
+                GetComponent<PlayerWall>().enabled = false;
 
-                //then we flip the sprite on the X axis multiplying the scale by -1
-                Vector3 scale = transform.localScale;
-                scale.x *= -1;
-                transform.localScale = scale;
+                foreach (Transform child in GetComponentsInChildren<Transform>())
+                {
+                    if (child.gameObject != this.gameObject)
+                        child.gameObject.SetActive(false);
+                }
             }
         }
 
         void FixedUpdate() //we are using FixedUpdate for all physics related
         {
-            if (m_isOnWall) //self explanatory
+            if (!m_isTheDictator)
             {
-                m_rigidbody.gravityScale = 0;
-                Debug.Log("gravity is 0");
-            }
-            else
-            {
-                m_rigidbody.gravityScale = m_gravityScale;
+                if (m_isOnWall) //self explanatory
+                {
+                    m_rigidbody.gravityScale = 0;
+                    Debug.Log("gravity is 0");
+                }
+                else
+                {
+                    m_rigidbody.gravityScale = m_gravityScale;
+                }
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            //we first get the input
-            m_hAxis= Input.GetAxis("Horizontal");
-
-            //then we set all the various animator values
-            if (m_hAxis != 0)
+            if (!m_isTheDictator)
             {
-                m_animator.SetBool("moving", true);
-                if (m_hAxis < 0 && m_facingDir)
+                //we first get the input
+                //m_hAxis= Input.GetAxis("Horizontal"); replacing this with the new input manager
+
+                //then we set all the various animator values
+                if (m_hAxis != 0)
                 {
-                    m_facingDir = false;
-                    Vector3 scale = transform.localScale;
-                    scale.x *= -1;
-                    transform.localScale = scale;
+                    m_animator.SetBool("moving", true);
+                    if (m_hAxis < 0 && m_facingDir)
+                    {
+                        m_facingDir = false;
+                        Vector3 scale = transform.localScale;
+                        scale.x *= -1;
+                        transform.localScale = scale;
+                    }
+                    else if (m_hAxis > 0 && !m_facingDir)
+                    {
+                        m_facingDir = true;
+                        Vector3 scale = transform.localScale;
+                        scale.x *= -1;
+                        transform.localScale = scale;
+                    }
+                    //we now chack if the player turned around and if so we mirror the sprite
+                    //if ((m_hAxis > 0 && !m_facingDir) || (m_hAxis < 0))
+                    //{
+                    //    //see above for explanation
+                    //    Vector3 scale = transform.localScale;
+                    //    scale.x *= -1;
+                    //    transform.localScale = scale;
+                    //}
                 }
-                else if (m_hAxis > 0 && !m_facingDir)
+                else
+                    m_animator.SetBool("moving", false);
+
+                m_animator.SetBool("jumping", m_isJumping);
+                m_animator.SetBool("falling", m_isFalling);
+                m_animator.SetBool("wallSliding", m_isOnWall);
+                m_animator.SetBool("onGround", m_isOnGround);
+
+
+                //we now check if the player is on the ground
+                m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius, m_surfaces);
+
+                //we then detect if he's falling
+                if (m_rigidbody.velocity.y < 0)
                 {
-                    m_facingDir = true;
-                    Vector3 scale = transform.localScale;
-                    scale.x *= -1;
-                    transform.localScale = scale;
+                    m_isFalling = true;
                 }
-                //we now chack if the player turned around and if so we mirror the sprite
-                //if ((m_hAxis > 0 && !m_facingDir) || (m_hAxis < 0))
-                //{
-                //    //see above for explanation
-                //    Vector3 scale = transform.localScale;
-                //    scale.x *= -1;
-                //    transform.localScale = scale;
-                //}
+                else
+                {
+                    m_isFalling = false;
+                }
+
+                if (m_groundCheck)
+                {
+                    m_isOnGround = true;
+                    m_isJumping = false;
+                    m_isFalling = false;
+                }
+                else
+                {
+                    m_isOnGround = false;
+                }
             }
-            else
-                m_animator.SetBool("moving", false);
-
-            m_animator.SetBool("jumping", m_isJumping);
-            m_animator.SetBool("falling", m_isFalling);
-            m_animator.SetBool("wallSliding", m_isOnWall);
-            m_animator.SetBool("onGround", m_isOnGround);
-
-
-            //we now check if the player is on the ground
-            m_groundCheck = Physics2D.OverlapCircle(m_groundTransform.position, m_groundCheckRadius, m_surfaces);
-
-            //we then detect if he's falling
-            if (m_rigidbody.velocity.y < 0)
-            {
-                m_isFalling = true;
-            }
-            else
-            {
-                m_isFalling = false;
-            }
-
-            if (m_groundCheck)
-            {
-                m_isOnGround = true;
-                m_isJumping = false;
-                m_isFalling = false;
-            }
-            else
-            {
-				m_isOnGround = false;
-			}
-
         }
 
         //we now take care of movement
@@ -203,7 +234,7 @@ namespace Ip2
 
         public void Jump()
         {
-            if (m_pJump)
+            if (m_pJump.m_pressingJumpBtn)
             {
                 m_pJump.Jump();
             }
@@ -257,6 +288,12 @@ namespace Ip2
         public void ResetJumpTimer()
         {
             m_pJump.ResetAirTime();
+        }
+
+        public void Respawn()
+        {
+            transform.position = m_respawn.transform.position;
+
         }
     }
 }

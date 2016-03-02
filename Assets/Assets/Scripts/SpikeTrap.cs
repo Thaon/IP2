@@ -11,12 +11,14 @@ public class SpikeTrap : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown(KeyCode.Q)) {
-			SpawnSpikes ();
-		}
-	}
-	public void SpawnSpikes(){
+	//void Update () {
+	//	if (Input.GetKeyDown(KeyCode.Q)) {
+	//		SpawnSpikes ();
+	//	}
+	//}
+
+    //we'll be activating the trap from the input manager
+	public void Activate(){
 		GameObject spikes = (GameObject)Instantiate (spikeSpawn, transform.position, Quaternion.identity);
 		spikes.tag = "spikes";
 	}

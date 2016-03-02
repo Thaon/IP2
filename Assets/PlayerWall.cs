@@ -278,7 +278,7 @@ namespace Ip2
                     Debug.Log(m_wallStickTime);
 
                     // When jumping while being stuck, make sure the jumps are reset and the player jumps.
-                    if (Input.GetButtonDown("Jump"))
+                    if (GetComponent<PlayerJump>().m_pressingJumpBtn)
                     {
                         Debug.Log("Wall jumping initiated");
                         Unstick();

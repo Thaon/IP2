@@ -1,0 +1,139 @@
+
+skeleton.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/player 4/Oval-[Player-4]_0000_attack
+  rotate: false
+  xy: 576, 351
+  size: 147, 132
+  orig: 147, 132
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0001_jump
+  rotate: false
+  xy: 240, 117
+  size: 149, 182
+  orig: 149, 182
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0002_death
+  rotate: false
+  xy: 874, 352
+  size: 125, 131
+  orig: 125, 131
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0003_face
+  rotate: false
+  xy: 725, 351
+  size: 147, 132
+  orig: 147, 132
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0004_Head
+  rotate: false
+  xy: 2, 78
+  size: 236, 405
+  orig: 236, 405
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0005_right-hand
+  rotate: true
+  xy: 149, 5
+  size: 71, 84
+  orig: 71, 84
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0006_right-forearm
+  rotate: true
+  xy: 576, 292
+  size: 57, 126
+  orig: 57, 126
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0007_right-upperarm
+  rotate: false
+  xy: 391, 154
+  size: 79, 125
+  orig: 79, 125
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0008_Upper-torso
+  rotate: false
+  xy: 240, 301
+  size: 158, 182
+  orig: 158, 182
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0009_Lower-torso
+  rotate: false
+  xy: 400, 337
+  size: 174, 146
+  orig: 174, 146
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0010_right-foot
+  rotate: false
+  xy: 782, 310
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0011_right-calf
+  rotate: true
+  xy: 400, 281
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0012_Right-thigh
+  rotate: true
+  xy: 2, 2
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0015_Left-thigh
+  rotate: true
+  xy: 2, 2
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0013_left-foot
+  rotate: false
+  xy: 782, 269
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0014_left-calf
+  rotate: true
+  xy: 235, 2
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0016_left-hand
+  rotate: true
+  xy: 704, 286
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0017_left-forearm
+  rotate: false
+  xy: 472, 153
+  size: 59, 126
+  orig: 59, 126
+  offset: 0, 0
+  index: -1
+images/player 4/Oval-[Player-4]_0018_left-upperarm
+  rotate: true
+  xy: 240, 58
+  size: 57, 133
+  orig: 57, 133
+  offset: 0, 0
+  index: -1

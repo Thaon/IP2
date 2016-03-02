@@ -11,6 +11,8 @@ namespace Ip2
         //public variables
         public bool m_canJump = true;
 
+        public bool m_pressingJumpBtn = false;
+
         public float m_jumpForce = 40f;
 
         //the following take care of jumping higher if the player holds the jump button
@@ -42,7 +44,7 @@ namespace Ip2
 
             //}
             //else
-            if (Input.GetButton("Jump") && m_isJumping) //if we are still jumping but we can go higher
+            if (m_pressingJumpBtn && m_isJumping) //if we are still jumping but we can go higher
             {
                 if (m_airTime > 0)
                 {
@@ -62,7 +64,7 @@ namespace Ip2
         void Update()
         {
             //we take care of jumping here
-            if (m_canJump && Input.GetButtonDown("Jump"))
+            if (m_canJump && m_pressingJumpBtn)
             {
                 if (m_player.m_isOnGround) //check if working on walls
                 {

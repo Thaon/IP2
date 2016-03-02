@@ -5,18 +5,15 @@ public class ArrowTrap : MonoBehaviour {
 	
 	public GameObject arrowSpawn;
 	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.R)) {
-			SpawnArrows ();
-		}
-	}
-	public void SpawnArrows(){
+	//void Update () {
+	//	if (Input.GetKeyDown (KeyCode.R)) {
+	//		SpawnArrows ();
+	//	}
+	//}
+
+    //activate is called from the input manager
+	public void Activate(){
 		GameObject arrow = (GameObject)Instantiate (arrowSpawn, transform.position, Quaternion.identity);
 		arrow.tag = "arrow";
 	}
