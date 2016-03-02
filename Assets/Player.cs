@@ -60,6 +60,8 @@ namespace Ip2
 
         public bool m_isTheDictator;
 
+        public int m_uniqueID;
+
         #endregion
 
         // Use this for initialization

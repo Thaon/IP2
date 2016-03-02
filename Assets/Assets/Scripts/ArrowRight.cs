@@ -6,8 +6,8 @@ public class ArrowRight : MonoBehaviour {
 	// Use this for initialization
 	void Start () { 
 		rigidbody2D.AddForce(new Vector2(100, 0), ForceMode2D.Impulse);
-
-	}
+        StartCoroutine(SelfDestroy());
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,5 +18,9 @@ public class ArrowRight : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-
+    IEnumerator SelfDestroy()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
+    }
 }

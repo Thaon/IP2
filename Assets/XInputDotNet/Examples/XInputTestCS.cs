@@ -16,9 +16,13 @@ namespace Ip2
         //tre trap system will have to be reworked to be flexible for modifications
         //probably having an "activation" class referencing scripts we can add as we want
         //also they should contain a tag to be easily indexed by the input manager
+        [SerializeField]
         FlameTrap[] m_redTraps;
+        [SerializeField]
         SpikeTrap[] m_yellowTraps;
+        [SerializeField]
         FallingBlocks[] m_greenTraps;
+        [SerializeField]
         ArrowTrap[] m_blueTraps;
 
 
