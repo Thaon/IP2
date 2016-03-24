@@ -194,6 +194,7 @@ namespace Ip2
                     m_isOnGround = true;
                     m_isJumping = false;
                     m_isFalling = false;
+                    m_animator.SetBool("jumping", false);
                 }
                 else
                 {

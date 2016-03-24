@@ -1,0 +1,139 @@
+
+skeleton.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/player 3/Triangle-[Player-3]_0000_death
+  rotate: false
+  xy: 757, 358
+  size: 144, 144
+  orig: 144, 144
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0001_attack
+  rotate: false
+  xy: 315, 152
+  size: 139, 166
+  orig: 139, 166
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0002_jump
+  rotate: false
+  xy: 475, 331
+  size: 139, 171
+  orig: 139, 171
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0003_face
+  rotate: false
+  xy: 616, 336
+  size: 139, 166
+  orig: 139, 166
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0004_Head
+  rotate: false
+  xy: 2, 150
+  size: 311, 352
+  orig: 311, 352
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0005_right-hand
+  rotate: false
+  xy: 632, 250
+  size: 71, 84
+  orig: 71, 84
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0006_right-forearm
+  rotate: false
+  xy: 573, 203
+  size: 57, 126
+  orig: 57, 126
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0007_right-upperarm
+  rotate: false
+  xy: 903, 377
+  size: 79, 125
+  orig: 79, 125
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0008_Upper-torso
+  rotate: false
+  xy: 315, 320
+  size: 158, 182
+  orig: 158, 182
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0009_Lower-torso
+  rotate: false
+  xy: 2, 2
+  size: 174, 146
+  orig: 174, 146
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0010_right-foot
+  rotate: true
+  xy: 705, 247
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0011_right-calf
+  rotate: true
+  xy: 757, 302
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0012_Right-thigh
+  rotate: false
+  xy: 178, 3
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0015_Left-thigh
+  rotate: false
+  xy: 178, 3
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0013_left-foot
+  rotate: false
+  xy: 824, 261
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0014_left-calf
+  rotate: false
+  xy: 456, 188
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0016_left-hand
+  rotate: true
+  xy: 746, 237
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0017_left-forearm
+  rotate: false
+  xy: 512, 203
+  size: 59, 126
+  orig: 59, 126
+  offset: 0, 0
+  index: -1
+images/player 3/Triangle-[Player-3]_0018_left-upperarm
+  rotate: false
+  xy: 254, 15
+  size: 57, 133
+  orig: 57, 133
+  offset: 0, 0
+  index: -1

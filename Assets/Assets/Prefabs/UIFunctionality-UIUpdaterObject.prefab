@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &118938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 418938}
+  - 114: {fileID: 11418938}
+  - 114: {fileID: 11418936}
+  m_Layer: 0
+  m_Name: UIFunctionality-UIUpdaterObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &418938
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 567, y: 319, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11418936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b995091a46779bc419d38cd0bea06b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  textObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  activateTransparency: 0
+--- !u!114 &11418938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57795c62ce449de4a8fee186fda1ee6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainGameUI: {fileID: 0}
+  choiceScreenUI: {fileID: 0}
+  player1Score: 4
+  player2Score: 10
+  player3Score: 10
+  player4Score: 10
+  player1ScoreObject: {fileID: 0}
+  player2ScoreObject: {fileID: 0}
+  player3ScoreObject: {fileID: 0}
+  player4ScoreObject: {fileID: 0}
+  player1SpriteObject: {fileID: 0}
+  player2SpriteObject: {fileID: 0}
+  player3SpriteObject: {fileID: 0}
+  player4SpriteObject: {fileID: 0}
+  player1Sprite: {fileID: 21300000, guid: 0415b3426375c8641a8083fe3e0ab2e2, type: 3}
+  player2Sprite: {fileID: 21300000, guid: d63922f5d1b55e14fb028abb9435bc27, type: 3}
+  player3Sprite: {fileID: 21300000, guid: 3b72d47d8fb56a6409fc3bec7d6be234, type: 3}
+  player4Sprite: {fileID: 21300000, guid: 1db6df0d42ae85d43a9ebaf361c3692d, type: 3}
+  player1Icon: {fileID: 21300000, guid: 482e3237f467c4f4e9e5341f566f9831, type: 3}
+  player2Icon: {fileID: 21300000, guid: a6d98dbd1cc17af45b84a5faeacbea86, type: 3}
+  player3Icon: {fileID: 21300000, guid: 8aa2a5072084fea41ab69580f6a7d48d, type: 3}
+  player4Icon: {fileID: 21300000, guid: 3edbf1c67db915c449a46cb51402889d, type: 3}
+  targetWinScore: 16
+  winningPlayerNumber: 0
+  roundNumber: 16
+  roundNumberObject: {fileID: 0}
+  showCountdown: 1
+  countdownActive: 0
+  roundCountdown: 30
+  roundCountdownTextObject: {fileID: 0}
+  roundCountdownLabel: {fileID: 0}
+  modifierLBString: MODIFIER A
+  modifierRBString: MODIFIER B
+  modifierLBTextObject: {fileID: 0}
+  modifierRBTextObject: {fileID: 0}
+  modifierLBActive: 0
+  modifierRBActive: 0
+  modifierLBUsed: 0
+  modifierRBUsed: 0
+  modifierLBSprite: {fileID: 0}
+  modifierRBSprite: {fileID: 0}
+  roundWinnerPlayerNumber: 1
+  roundWinnerTextObject: {fileID: 0}
+  roundWinnerPlayerIconObject: {fileID: 0}
+  roundWinnerPlayerHeadObject: {fileID: 0}
+  roundWinnerPlayerIcon: {fileID: 21300000, guid: 3edbf1c67db915c449a46cb51402889d,
+    type: 3}
+  roundWinnerPlayerHead: {fileID: 21300000, guid: 1db6df0d42ae85d43a9ebaf361c3692d,
+    type: 3}
+  gamemodeString: GAMEMODE
+  gamemodeDescriptionString: Gamemode description goes here
+  gamemodeTextObject: {fileID: 0}
+  gamemodeDescriptionTextObject: {fileID: 0}
+  roundStartCountdown: 3
+  preRoundCountdownActive: 0
+  roundStartCountdownTextObject: {fileID: 0}
+  showMain: 0
+  showPreRound: 0
+  showRoundWinner: 0
+  showChoiceScreen: 0
+  newDictatorIconObject: {fileID: 0}
+  newDictatorHeadObject: {fileID: 0}
+  newDictatorTextObject: {fileID: 0}
+  gamemodeChoiceATextObject: {fileID: 0}
+  gamemodeChoiceBTextObject: {fileID: 0}
+  gamemodeChoiceCTextObject: {fileID: 0}
+  gamemodeChoiceDTextObject: {fileID: 0}
+  modifierATextObject: {fileID: 0}
+  modifierBTextObject: {fileID: 0}
+  modifierCTextObject: {fileID: 0}
+  modifierDTextObject: {fileID: 0}
+  modifierETextObject: {fileID: 0}
+  modifierFTextObject: {fileID: 0}
+  modifierGTextObject: {fileID: 0}
+  modifierHTextObject: {fileID: 0}
+  choiceTimerTextObject: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 118938}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

@@ -1,0 +1,139 @@
+
+skeleton.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/player 2/Square-[Player-2]_0000_death
+  rotate: false
+  xy: 2, 78
+  size: 243, 163
+  orig: 243, 163
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0000_face
+  rotate: false
+  xy: 583, 371
+  size: 243, 127
+  orig: 243, 127
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0001_attack
+  rotate: false
+  xy: 338, 361
+  size: 243, 137
+  orig: 243, 137
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0001_head
+  rotate: false
+  xy: 2, 243
+  size: 334, 255
+  orig: 334, 255
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0002_jump
+  rotate: false
+  xy: 338, 232
+  size: 243, 127
+  orig: 243, 127
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0002_right-hand
+  rotate: true
+  xy: 149, 5
+  size: 71, 84
+  orig: 71, 84
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0003_right-forearm
+  rotate: true
+  xy: 328, 117
+  size: 57, 126
+  orig: 57, 126
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0004_right-upperarm
+  rotate: false
+  xy: 247, 116
+  size: 79, 125
+  orig: 79, 125
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0005_Upper-torso
+  rotate: true
+  xy: 583, 211
+  size: 158, 182
+  orig: 158, 182
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0007_right-foot
+  rotate: false
+  xy: 247, 75
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0008_right-calf
+  rotate: true
+  xy: 828, 237
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0009_Lower-torso
+  rotate: false
+  xy: 828, 352
+  size: 174, 146
+  orig: 174, 146
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0009_Right-thigh
+  rotate: true
+  xy: 2, 2
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0012_Left-thigh
+  rotate: true
+  xy: 2, 2
+  size: 74, 145
+  orig: 74, 145
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0010_left-foot
+  rotate: false
+  xy: 336, 76
+  size: 87, 39
+  orig: 87, 39
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0011_left-calf
+  rotate: true
+  xy: 328, 176
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0013_left-hand
+  rotate: true
+  xy: 460, 167
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0014_left-forearm
+  rotate: false
+  xy: 767, 243
+  size: 59, 126
+  orig: 59, 126
+  offset: 0, 0
+  index: -1
+images/player 2/Square-[Player-2]_0015_left-upperarm
+  rotate: true
+  xy: 828, 293
+  size: 57, 133
+  orig: 57, 133
+  offset: 0, 0
+  index: -1

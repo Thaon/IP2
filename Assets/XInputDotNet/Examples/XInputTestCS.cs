@@ -25,8 +25,6 @@ namespace Ip2
         [SerializeField]
         ArrowTrap[] m_blueTraps;
 
-
-
         //adding references to the player GameObjects
         [SerializeField]
         public GameObject[] m_players;
@@ -34,23 +32,26 @@ namespace Ip2
         // Use this for initialization
         void Start()
         {
+
             // No need to initialize anything for the plugin
             state = new GamePadState[4];
             prevState = new GamePadState[4];
 
-            //get all traps
-            m_redTraps = FindObjectsOfType<FlameTrap>();
-            m_yellowTraps = FindObjectsOfType<SpikeTrap>();
-            m_greenTraps = FindObjectsOfType<FallingBlocks>();
-            m_blueTraps = FindObjectsOfType<ArrowTrap>();
-
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.game)
+            {
+                //get all traps
+                m_redTraps = FindObjectsOfType<FlameTrap>();
+                m_yellowTraps = FindObjectsOfType<SpikeTrap>();
+                m_greenTraps = FindObjectsOfType<FallingBlocks>();
+                m_blueTraps = FindObjectsOfType<ArrowTrap>();
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            // Find a PlayerIndex
-            if (!playerIndexSet)// || !prevState.IsConnected)
+                // Find a PlayerIndex
+                if (!playerIndexSet)// || !prevState.IsConnected)
             {
                 //state[4] = GamePad.GetState((PlayerIndex)0);
                 for (int n = 0; n < 4; ++n)
@@ -89,63 +90,110 @@ namespace Ip2
 
             int i = 0;
             //Debug.Log(i);
-            foreach (GameObject player in m_players)
+
+            //we now perform the game loop controller behavior
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.game)
             {
-                if (state[i].IsConnected)
+                foreach (GameObject player in m_players)
                 {
-                    if (!player.GetComponent<Player>().m_isTheDictator)
+                    if (state[i].IsConnected)
                     {
-                        //move
-                        player.GetComponent<Player>().m_hAxis = state[i].ThumbSticks.Left.X;
-                        //Debug.Log(state[i].ThumbSticks.Left.X);
-                        //Debug.Log(state[i].Buttons.A);
-                        //jump
-                        if (state[i].Buttons.A == ButtonState.Pressed)
+                        if (!player.GetComponent<Player>().m_isTheDictator)
                         {
-                            player.GetComponent<PlayerJump>().m_pressingJumpBtn = true;
+                            //move
+                            player.GetComponent<Player>().m_hAxis = state[i].ThumbSticks.Left.X;
+                            //Debug.Log(state[i].ThumbSticks.Left.X);
+                            //Debug.Log(state[i].Buttons.A);
+                            //jump
+                            if (state[i].Buttons.A == ButtonState.Pressed)
+                            {
+                                player.GetComponent<PlayerJump>().m_pressingJumpBtn = true;
+                            }
+                            else if (state[i].Buttons.A == ButtonState.Released)
+                            {
+                                player.GetComponent<PlayerJump>().m_pressingJumpBtn = false;
+                            }
                         }
-                        else if (state[i].Buttons.A == ButtonState.Released)
+                        else //if we are the dictator, we activate the traps
                         {
-                            player.GetComponent<PlayerJump>().m_pressingJumpBtn = false;
+                            //ACTIVATE GREEN TRAPS
+                            if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released) //if we are tapping the button
+                            {
+                                foreach (FallingBlocks greenTrap in m_greenTraps)
+                                {
+                                    greenTrap.Activate();
+                                }
+                            }
+                            //ACTIVATE BLUE TRAPS
+                            if (state[i].Buttons.X == ButtonState.Pressed && prevState[i].Buttons.X == ButtonState.Released) //if we are tapping the button
+                            {
+                                foreach (ArrowTrap blueTrap in m_blueTraps)
+                                {
+                                    blueTrap.Activate();
+                                }
+                            }
+                            //ACTIVATE RED TRAPS
+                            if (state[i].Buttons.B == ButtonState.Pressed && prevState[i].Buttons.B == ButtonState.Released) //if we are tapping the button
+                            {
+                                foreach (FlameTrap redTrap in m_redTraps)
+                                {
+                                    redTrap.Activate();
+                                }
+                            }
+                            //ACTIVATE YELLOW TRAPS
+                            if (state[i].Buttons.Y == ButtonState.Pressed && prevState[i].Buttons.Y == ButtonState.Released) //if we are tapping the button
+                            {
+                                foreach (SpikeTrap yellowTrap in m_yellowTraps)
+                                {
+                                    yellowTrap.Activate();
+                                }
+                            }
+                        }
+                        //then we check if the players want to go back to the menu
+
+                        if (state[i].Buttons.Back == ButtonState.Pressed)
+                        {
+                            Application.LoadLevel(0);
+                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.menu;
                         }
                     }
-                    else //if we are the dictator, we activate the traps
+                    i++;
+                }
+            }
+            //if not, we perform the menu one
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.menu)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (state[j].IsConnected)
                     {
-                        //ACTIVATE GREEN TRAPS
-                        if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released) //if we are tapping the button
+                        if (state[j].Buttons.Start == ButtonState.Pressed)
                         {
-                            foreach(FallingBlocks greenTrap in m_greenTraps)
-                            {
-                                greenTrap.Activate();
-                            }
+                            Application.LoadLevel(1);
+                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.game;
                         }
-                        //ACTIVATE BLUE TRAPS
-                        if (state[i].Buttons.X == ButtonState.Pressed && prevState[i].Buttons.X == ButtonState.Released) //if we are tapping the button
+
+                        if (state[j].Buttons.Back == ButtonState.Pressed)
                         {
-                            foreach (ArrowTrap blueTrap in m_blueTraps)
-                            {
-                                blueTrap.Activate();
-                            }
-                        }
-                        //ACTIVATE RED TRAPS
-                        if (state[i].Buttons.B == ButtonState.Pressed && prevState[i].Buttons.B == ButtonState.Released) //if we are tapping the button
-                        {
-                            foreach (FlameTrap redTrap in m_redTraps)
-                            {
-                                redTrap.Activate();
-                            }
-                        }
-                        //ACTIVATE YELLOW TRAPS
-                        if (state[i].Buttons.Y == ButtonState.Pressed && prevState[i].Buttons.Y == ButtonState.Released) //if we are tapping the button
-                        {
-                            foreach (SpikeTrap yellowTrap in m_yellowTraps)
-                            {
-                                yellowTrap.Activate();
-                            }
+                            Application.Quit();
                         }
                     }
                 }
-                i++;
+            }
+
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.scoreScreen)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (state[j].IsConnected)
+                    {
+                        if (state[j].Buttons.Back == ButtonState.Pressed)
+                        {
+                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().ResetData();
+                            Application.LoadLevel(0);
+                        }
+                    }
+                }
             }
             //Debug.Log(i);
 

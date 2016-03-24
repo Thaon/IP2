@@ -10,7 +10,7 @@ namespace Ip2
         // Use this for initialization
         void Start()
         {
-            m_data = FindObjectOfType<PersistentData>();
+            m_data = GameObject.Find("PersistentDataGO").GetComponent<PersistentData>();
 
             Text winTxt = GameObject.Find("Winning Player: Player Number Text").GetComponent<Text>();
 
