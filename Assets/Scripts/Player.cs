@@ -59,6 +59,7 @@ namespace Ip2
         private GameObject m_respawn;
 
         public bool m_isTheDictator;
+        public bool m_hasBeenKilledOnce = false;
 
         public int m_uniqueID;
 
@@ -305,7 +306,25 @@ namespace Ip2
         public void Respawn()
         {
             transform.position = m_respawn.transform.position;
-
+            if (!m_hasBeenKilledOnce)
+            {
+                switch(m_uniqueID)
+                {
+                    case 0:
+                    GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().player1Score++;
+                    break;
+                    case 1:
+                    GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().player2Score++;
+                    break;
+                    case 2:
+                    GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().player3Score++;
+                    break;
+                    case 3:
+                    GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().player4Score++;
+                    break;
+                }
+                m_hasBeenKilledOnce = true;
+            }
         }
     }
 }

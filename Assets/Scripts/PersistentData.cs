@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 namespace Ip2
@@ -22,6 +23,12 @@ namespace Ip2
         public int player3Score = 0;
         public int player4Score = 0;
 
+        Text m_p1score;
+        Text m_p2score;
+        Text m_p3score;
+        Text m_p4score;
+        Text m_roundNumberInfo;
+
         public GameState m_state;
 
         public int m_themeSelected;
@@ -31,6 +38,12 @@ namespace Ip2
             DontDestroyOnLoad(this.gameObject);
 
             m_UIControls = GameObject.Find("UI Updater");
+
+            m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
+            m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
+            m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
+            m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
+            m_roundNumberInfo = GameObject.Find("Round Info: Round Number").GetComponent<Text>();
 
             if (Application.loadedLevel == 0)
             {
@@ -57,6 +70,13 @@ namespace Ip2
                 {
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = true;
+
+                    m_p1score.text = player1Score.ToString();
+                    m_p2score.text = player2Score.ToString();
+                    m_p3score.text = player3Score.ToString();
+                    m_p4score.text = player4Score.ToString();
+                    m_roundNumberInfo.text = m_roundNumnber.ToString();
+
                     if (m_UIControls.GetComponent<UpdateUI>().roundCountdown <= 0.1f)
                     {
                         //set up a winner here
@@ -69,6 +89,20 @@ namespace Ip2
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = false;
                     m_UIControls.GetComponent<UpdateUI>().showRoundWinner = true;
+                    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                    if (players.Length > 0)
+                    {
+                        foreach (GameObject player in players)
+                        {
+                            //print(player.GetComponent<Player>().m_uniqueID);
+                            if (player.GetComponent<Player>().m_isTheDictator == true)
+                            {
+                                player.GetComponent<Player>().SetXSpeed(0);
+                                player.GetComponent<Player>().SetXSpeed(1);
+                            }
+                        }
+                    }
+
                 }
 
                 if (m_state == GameState.modeSelection)

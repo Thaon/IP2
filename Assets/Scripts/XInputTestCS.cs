@@ -195,12 +195,16 @@ namespace Ip2
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (state[j].IsConnected && m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
+                    if (state[j].IsConnected)
                     {
-                        if (state[j].Buttons.Start == ButtonState.Pressed)
+                        m_players[j].GetComponent<Player>().m_hAxis = 0;
+                        if (m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
                         {
-                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.modeSelection;
-                            Application.LoadLevel("GameMode Selection");
+                            if (state[j].Buttons.Start == ButtonState.Pressed)
+                            {
+                                GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.modeSelection;
+                                Application.LoadLevel("GameMode Selection");
+                            }
                         }
                     }
                 }

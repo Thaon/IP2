@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Ip2
+{
 public class Arrow : MonoBehaviour {
 
 	public bool shouldBeLaunched;
@@ -37,16 +39,21 @@ public class Arrow : MonoBehaviour {
 		shouldBeLaunched = true;
 	}
 
-	void OnTriggerEnter2D(Collider2D other) 
-	{
-		if (arrowTriggerDelay < 0) 
-		{
-			if (other.gameObject.tag == "Surface" || other.gameObject.tag == "Trap: Arrow" || other.gameObject.tag == "Trap: Crumble" || other.gameObject.tag == "Trap: Flame" || other.gameObject.tag == "Trap: Spike" )
-			{
-				Debug.Log ("THIS HAS HIT SOMETHING");
-				gameObject.SetActive(false);
-			}
-		}
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (arrowTriggerDelay < 0)
+            {
+                if (other.gameObject.tag == "Surface" || other.gameObject.tag == "Trap: Arrow" || other.gameObject.tag == "Trap: Crumble" || other.gameObject.tag == "Trap: Flame" || other.gameObject.tag == "Trap: Spike")
+                {
+                    //Debug.Log ("THIS HAS HIT SOMETHING");
+                    gameObject.SetActive(false);
+                }
 
+                if (other.tag == "Player")
+                {
+                    other.GetComponent<Player>().Respawn();
+                }
+            }
+        }
 	}
 }
