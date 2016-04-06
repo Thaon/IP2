@@ -83,6 +83,15 @@ namespace Ip2
 
                 m_surfaces = LayerMask.GetMask("surfaces");
 
+                if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_dictator == m_uniqueID)
+                {
+                    m_isTheDictator = true;
+                }
+                else
+                {
+                    m_isTheDictator = false;
+                }
+
                 // Check which direction the player is facing based on the spriteDirection and flip when the spriteDirection is Left.
                 if (m_direction == Dir.e_right)
                 {

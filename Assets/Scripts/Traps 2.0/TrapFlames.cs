@@ -32,32 +32,35 @@ public class TrapFlames : MonoBehaviour {
 		buttonOriginalScale = flameTrapButtons [0].gameObject.transform.localScale;
 	}
 	
+    public void Activate()
+    {
+        // If the input button is pressed and the trap is ready, activate it
+        if (Input.GetKeyDown(KeyCode.B) && !trapIsActive && trapIsReady)
+        {
+            // Loop through and activate our traps
+            for (int i = 0; i < flameTraps.Length; i++)
+            {
+                flameTraps[i].gameObject.SetActive(true);
+            }
+
+            // Loop through our buttons and change the colour and scale
+            for (int i = 0; i < flameTrapButtons.Length; i++)
+            {
+                flameTrapButtons[i].gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 0.4f);
+
+                flameTrapButtons[i].gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            }
+
+            gameObject.GetComponent<AudioSource>().PlayOneShot(trapFlamesSoundEffect);
+
+            trapIsActive = true;
+            trapIsReady = false;
+        }
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
-		// If the input button is pressed and the trap is ready, activate it
-		if (Input.GetKeyDown(KeyCode.B) && !trapIsActive && trapIsReady) 
-		{
-			// Loop through and activate our traps
-			for (int i = 0; i < flameTraps.Length; i++)
-			{
-				flameTraps[i].gameObject.SetActive(true);
-			}
-
-			// Loop through our buttons and change the colour and scale
-			for (int i = 0; i < flameTrapButtons.Length; i++)
-			{
-				flameTrapButtons[i].gameObject.GetComponent<SpriteRenderer>().color = new Color (1.0f, 1.0f, 1.0f, 0.4f);
-				
-				flameTrapButtons[i].gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-			}
-
-			gameObject.GetComponent<AudioSource>().PlayOneShot(trapFlamesSoundEffect);
-
-			trapIsActive = true;
-			trapIsReady = false;
-		}
-		
 		// Cooldown for the trap before resetting trap
 		if (trapIsActive && trapCooldown > 0) 
 		{

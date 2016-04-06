@@ -3,8 +3,8 @@ using System.Collections;
 
 namespace Ip2
 {
-    public class MainMenu : MonoBehaviour {
-
+    public class MainMenu : MonoBehaviour
+    {
         void Start()
         {
             if (!GameObject.Find("PersistentDataGO"))
@@ -14,7 +14,7 @@ namespace Ip2
                 pData.name = "PersistentDataGO";
                 pData.AddComponent<PersistentData>();
             }
-    }
+        }
 
         void Update() {
 

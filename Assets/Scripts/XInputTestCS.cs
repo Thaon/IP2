@@ -18,18 +18,17 @@ namespace Ip2
         //tre trap system will have to be reworked to be flexible for modifications
         //probably having an "activation" class referencing scripts we can add as we want
         //also they should contain a tag to be easily indexed by the input manager
-        [SerializeField]
-        FlameTrap[] m_redTraps;
-        [SerializeField]
-        SpikeTrap[] m_yellowTraps;
-        [SerializeField]
-        FallingBlocks[] m_greenTraps;
-        [SerializeField]
-        ArrowTrap[] m_blueTraps;
+        TrapFlames m_redTraps;
+        TrapSpikes m_yellowTraps;
+        TrapCrumble m_greenTraps;
+        TrapArrows m_blueTraps;
 
         //adding references to the player GameObjects
         [SerializeField]
         public GameObject[] m_players;
+
+        //setting up two variables for the mode selection screen
+        int m_levelSelected, m_themeSelected;
 
         // Use this for initialization
         void Start()
@@ -48,10 +47,10 @@ namespace Ip2
             if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.game)
             {
                 //get all traps
-                m_redTraps = FindObjectsOfType<FlameTrap>();
-                m_yellowTraps = FindObjectsOfType<SpikeTrap>();
-                m_greenTraps = FindObjectsOfType<FallingBlocks>();
-                m_blueTraps = FindObjectsOfType<ArrowTrap>();
+                m_redTraps = FindObjectOfType(typeof(TrapFlames)) as TrapFlames;
+                m_yellowTraps = FindObjectOfType(typeof(TrapSpikes)) as TrapSpikes;
+                m_greenTraps = FindObjectOfType(typeof(TrapCrumble)) as TrapCrumble;
+                m_blueTraps = FindObjectOfType(typeof(TrapArrows)) as TrapArrows;
             }
         }
 
@@ -63,26 +62,29 @@ namespace Ip2
             {
                 PlayerIndex testPlayerIndex = (PlayerIndex)n;
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
-                if (testState.IsConnected && m_isConnected[n] == false)
+                if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state != GameState.scoreScreen)
                 {
-                    Debug.Log(string.Format("GamePad found ", testPlayerIndex));
-                    playerIndex = testPlayerIndex;
-                    //Debug.Log(testState.IsConnected);
-                    state[n] = GamePad.GetState(testPlayerIndex);
-                    //spawn player in world
-                    m_playerSpawn[n].GetComponent<PlayerSpawn>().Spawn();
-                    //print("spawning player " + n.ToString());
-                    m_isConnected[n] = true;
-                    prevState[n] = state[n];
-                    state[n] = GamePad.GetState((PlayerIndex)n); //getting the states for each player
-                }
-                else if (!testState.IsConnected && m_isConnected[n] == true)
-                {
-                    //print("de-spawning player " + n.ToString());
-                    m_playerSpawn[n].GetComponent<PlayerSpawn>().DeSpawn();
-                    m_isConnected[n] = false;
-                    prevState[n] = state[n];
-                    state[n] = GamePad.GetState((PlayerIndex)n); //getting the states for each player
+                    if (testState.IsConnected && m_isConnected[n] == false)
+                    {
+                        //Debug.Log(string.Format("GamePad found ", testPlayerIndex));
+                        playerIndex = testPlayerIndex;
+                        //Debug.Log(testState.IsConnected);
+                        state[n] = GamePad.GetState(testPlayerIndex);
+                        //spawn player in world
+                        m_playerSpawn[n].GetComponent<PlayerSpawn>().Spawn();
+                        //print("spawning player " + n.ToString());
+                        m_isConnected[n] = true;
+                        prevState[n] = state[n];
+                        state[n] = GamePad.GetState((PlayerIndex)n); //getting the states for each player
+                    }
+                    else if (!testState.IsConnected && m_isConnected[n] == true)
+                    {
+                        //print("de-spawning player " + n.ToString());
+                        m_playerSpawn[n].GetComponent<PlayerSpawn>().DeSpawn();
+                        m_isConnected[n] = false;
+                        prevState[n] = state[n];
+                        state[n] = GamePad.GetState((PlayerIndex)n); //getting the states for each player
+                    }
                 }
                 //Debug.Log(n);
             }
@@ -97,7 +99,7 @@ namespace Ip2
             //Debug.Log(i);
 
             //we now perform the game loop controller behavior
-            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.game)
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.game || GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.dictatorSelection)
             {
                 foreach (GameObject player in m_players)
                 {
@@ -125,34 +127,22 @@ namespace Ip2
                             //ACTIVATE GREEN TRAPS
                             if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released) //if we are tapping the button
                             {
-                                foreach (FallingBlocks greenTrap in m_greenTraps)
-                                {
-                                    greenTrap.Activate();
-                                }
+                                    m_greenTraps.Activate();
                             }
                             //ACTIVATE BLUE TRAPS
                             if (state[i].Buttons.X == ButtonState.Pressed && prevState[i].Buttons.X == ButtonState.Released) //if we are tapping the button
                             {
-                                foreach (ArrowTrap blueTrap in m_blueTraps)
-                                {
-                                    blueTrap.Activate();
-                                }
+                                m_blueTraps.Activate();
                             }
                             //ACTIVATE RED TRAPS
                             if (state[i].Buttons.B == ButtonState.Pressed && prevState[i].Buttons.B == ButtonState.Released) //if we are tapping the button
                             {
-                                foreach (FlameTrap redTrap in m_redTraps)
-                                {
-                                    redTrap.Activate();
-                                }
+                                m_redTraps.Activate();
                             }
                             //ACTIVATE YELLOW TRAPS
                             if (state[i].Buttons.Y == ButtonState.Pressed && prevState[i].Buttons.Y == ButtonState.Released) //if we are tapping the button
                             {
-                                foreach (SpikeTrap yellowTrap in m_yellowTraps)
-                                {
-                                    yellowTrap.Activate();
-                                }
+                                m_yellowTraps.Activate();
                             }
                         }
                         //then we check if the players want to go back to the menu
@@ -189,8 +179,8 @@ namespace Ip2
 
                         if (state[0].Buttons.Start == ButtonState.Pressed) //only player 1 can start or quit the game
                         {
+                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.dictatorSelection;
                             Application.LoadLevel(1);
-                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.game;
                         }
 
                         if (state[0].Buttons.Back == ButtonState.Pressed)
@@ -201,16 +191,82 @@ namespace Ip2
                 }
             }
 
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.roundFinished)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (state[j].IsConnected && m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
+                    {
+                        if (state[j].Buttons.Start == ButtonState.Pressed)
+                        {
+                            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.modeSelection;
+                            Application.LoadLevel("GameMode Selection");
+                        }
+                    }
+                }
+            }
+
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.modeSelection)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (state[j].IsConnected && m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
+                    {
+                        //selecting level from randomly arranged pool of the same mode
+                        if (state[j].DPad.Up == ButtonState.Pressed)
+                        {
+                            m_levelSelected = 1;
+                        }
+                        if (state[j].DPad.Right == ButtonState.Pressed)
+                        {
+                            m_levelSelected = 2;
+                        }
+                        if (state[j].DPad.Down == ButtonState.Pressed)
+                        {
+                            m_levelSelected = 3;
+                        }
+                        if (state[j].DPad.Left == ButtonState.Pressed)
+                        {
+                            m_levelSelected = 4;
+                        }
+
+                        //selecting theme from our 4
+                        if (state[j].Buttons.A == ButtonState.Pressed)
+                        {
+                            m_themeSelected = 0; //underwater
+                        }
+                        if (state[j].Buttons.B == ButtonState.Pressed)
+                        {
+                            m_themeSelected = 1; //sky temple
+                        }
+                        if (state[j].Buttons.X == ButtonState.Pressed)
+                        {
+                            m_themeSelected = 2; //tomb
+                        }
+                        if (state[j].Buttons.Y == ButtonState.Pressed)
+                        {
+                            m_themeSelected = 3; //colosseum
+                        }
+
+                        if (state[j].Buttons.Start == ButtonState.Pressed) //we can finally start the game!
+                        {
+                            PersistentData pData = FindObjectOfType(typeof(PersistentData)) as PersistentData;
+                            pData.LoadLevel(m_levelSelected, m_themeSelected);
+                        }
+                    }
+                }
+            }
+
             if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.scoreScreen)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     if (state[j].IsConnected)
                     {
                         if (state[j].Buttons.Back == ButtonState.Pressed)
                         {
                             GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().ResetData();
-                            Application.LoadLevel(0);
+                            Application.LoadLevel("MainMenu");
                         }
                     }
                 }

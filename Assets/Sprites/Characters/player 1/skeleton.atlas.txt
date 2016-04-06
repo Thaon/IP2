@@ -1,179 +1,139 @@
 
 skeleton.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-images/Hair exp/Untitled-1_0000_m1
+images/player 1/Sphere-[Player-1]_0000_face
   rotate: false
-  xy: 2, 20
-  size: 609, 471
-  orig: 609, 471
-  offset: 0, 0
-  index: -1
-images/Hair exp/Untitled-1_0001_h3
-  rotate: false
-  xy: 2, 493
-  size: 872, 511
-  orig: 872, 511
+  xy: 460, 350
+  size: 176, 152
+  orig: 176, 152
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0000_face-dead
   rotate: true
-  xy: 876, 519
+  xy: 173, 28
   size: 157, 114
   orig: 157, 114
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0001_face-attack
-  rotate: true
-  xy: 876, 678
+  rotate: false
+  xy: 814, 363
   size: 150, 139
   orig: 150, 139
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0001_head
   rotate: false
-  xy: 613, 176
+  xy: 2, 187
   size: 296, 315
   orig: 296, 315
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0002_face-jump
-  rotate: true
-  xy: 613, 5
+  rotate: false
+  xy: 2, 2
   size: 169, 183
   orig: 169, 183
   offset: 0, 0
   index: -1
+images/player 1/Sphere-[Player-1]_0002_right-hand
+  rotate: true
+  xy: 435, 162
+  size: 71, 84
+  orig: 71, 84
+  offset: 0, 0
+  index: -1
+images/player 1/Sphere-[Player-1]_0003_right-forearm
+  rotate: true
+  xy: 447, 235
+  size: 57, 126
+  orig: 57, 126
+  offset: 0, 0
+  index: -1
 images/player 1/Sphere-[Player-1]_0004_right-upperarm
   rotate: false
-  xy: 911, 392
+  xy: 289, 58
   size: 79, 125
   orig: 79, 125
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0005_Upper-torso
-  rotate: true
-  xy: 798, 16
+  rotate: false
+  xy: 300, 320
   size: 158, 182
   orig: 158, 182
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0006_Lower-torso
-  rotate: true
-  xy: 876, 830
+  rotate: false
+  xy: 638, 356
   size: 174, 146
   orig: 174, 146
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0007_right-foot
   rotate: true
-  xy: 982, 91
+  xy: 521, 146
   size: 87, 39
   orig: 87, 39
   offset: 0, 0
   index: -1
-images/player 1/Sphere-[Player-1]_0009_Right-thigh
+images/player 1/Sphere-[Player-1]_0008_right-calf
   rotate: false
-  xy: 911, 245
+  xy: 966, 372
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 1/Sphere-[Player-1]_0009_Right-thigh
+  rotate: true
+  xy: 300, 244
   size: 74, 145
   orig: 74, 145
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0012_Left-thigh
-  rotate: false
-  xy: 911, 245
+  rotate: true
+  xy: 300, 244
   size: 74, 145
   orig: 74, 145
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0010_left-foot
   rotate: true
-  xy: 982, 2
+  xy: 562, 146
   size: 87, 39
   orig: 87, 39
   offset: 0, 0
   index: -1
-images/player 1/Sphere-[Player-1]_0013_left-hand
+images/player 1/Sphere-[Player-1]_0011_left-calf
   rotate: true
-  xy: 911, 180
+  xy: 460, 294
+  size: 54, 130
+  orig: 54, 130
+  offset: 0, 0
+  index: -1
+images/player 1/Sphere-[Player-1]_0013_left-hand
+  rotate: false
+  xy: 431, 84
   size: 63, 76
   orig: 63, 76
   offset: 0, 0
   index: -1
-
-skeleton2.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-images/Hair exp/Untitled-1_0002_h1
-  rotate: false
-  xy: 2, 284
-  size: 839, 550
-  orig: 839, 550
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0000_face
-  rotate: false
-  xy: 2, 130
-  size: 176, 152
-  orig: 176, 152
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0002_right-hand
-  rotate: false
-  xy: 63, 44
-  size: 71, 84
-  orig: 71, 84
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0003_right-forearm
-  rotate: false
-  xy: 902, 708
-  size: 57, 126
-  orig: 57, 126
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0008_right-calf
-  rotate: false
-  xy: 180, 152
-  size: 54, 130
-  orig: 54, 130
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0011_left-calf
-  rotate: false
-  xy: 843, 569
-  size: 54, 130
-  orig: 54, 130
-  offset: 0, 0
-  index: -1
 images/player 1/Sphere-[Player-1]_0014_left-forearm
   rotate: false
-  xy: 2, 2
+  xy: 370, 57
   size: 59, 126
   orig: 59, 126
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0015_left-upperarm
-  rotate: false
-  xy: 843, 701
+  rotate: true
+  xy: 300, 185
   size: 57, 133
   orig: 57, 133
-  offset: 0, 0
-  index: -1
-
-skeleton3.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-images/Hair exp/Untitled-1_0003_h2
-  rotate: false
-  xy: 2, 2
-  size: 844, 520
-  orig: 844, 520
   offset: 0, 0
   index: -1

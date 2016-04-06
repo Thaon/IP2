@@ -1,172 +1,138 @@
 
 skeleton.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-images/Hair exp/Untitled-1_0001_h3
-  rotate: false
-  xy: 2, 16
-  size: 872, 256
-  orig: 872, 256
-  offset: 0, 0
-  index: -1
-images/Hair exp/Untitled-1_0002_h1
-  rotate: false
-  xy: 2, 274
-  size: 839, 357
-  orig: 839, 357
-  offset: 0, 0
-  index: -1
-images/Hair exp/Untitled-1_0003_h2
-  rotate: false
-  xy: 2, 633
-  size: 844, 373
-  orig: 844, 373
-  offset: 0, 0
-  index: -1
 images/player 1/Sphere-[Player-1]_0000_face
-  rotate: true
-  xy: 843, 313
+  rotate: false
+  xy: 460, 350
   size: 176, 152
   orig: 176, 152
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0000_face-dead
   rotate: true
-  xy: 876, 154
+  xy: 173, 28
   size: 157, 114
   orig: 157, 114
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0001_face-attack
-  rotate: true
-  xy: 876, 2
+  rotate: false
+  xy: 814, 363
   size: 150, 139
   orig: 150, 139
   offset: 0, 0
   index: -1
-images/player 1/Sphere-[Player-1]_0002_face-jump
-  rotate: false
-  xy: 848, 675
-  size: 169, 183
-  orig: 169, 183
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0005_Upper-torso
-  rotate: false
-  xy: 848, 491
-  size: 158, 182
-  orig: 158, 182
-  offset: 0, 0
-  index: -1
-images/player 1/Sphere-[Player-1]_0006_Lower-torso
-  rotate: false
-  xy: 848, 860
-  size: 174, 146
-  orig: 174, 146
-  offset: 0, 0
-  index: -1
-
-skeleton2.png
-size: 1024,512
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-images/Hair exp/Untitled-1_0000_m1
-  rotate: false
-  xy: 2, 39
-  size: 609, 471
-  orig: 609, 471
-  offset: 0, 0
-  index: -1
 images/player 1/Sphere-[Player-1]_0001_head
   rotate: false
-  xy: 613, 195
+  xy: 2, 187
   size: 296, 315
   orig: 296, 315
   offset: 0, 0
   index: -1
+images/player 1/Sphere-[Player-1]_0002_face-jump
+  rotate: false
+  xy: 2, 2
+  size: 169, 183
+  orig: 169, 183
+  offset: 0, 0
+  index: -1
 images/player 1/Sphere-[Player-1]_0002_right-hand
   rotate: true
-  xy: 938, 184
+  xy: 435, 162
   size: 71, 84
   orig: 71, 84
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0003_right-forearm
-  rotate: false
-  xy: 860, 67
+  rotate: true
+  xy: 447, 235
   size: 57, 126
   orig: 57, 126
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0004_right-upperarm
   rotate: false
-  xy: 911, 385
+  xy: 289, 58
   size: 79, 125
   orig: 79, 125
   offset: 0, 0
   index: -1
+images/player 1/Sphere-[Player-1]_0005_Upper-torso
+  rotate: false
+  xy: 300, 320
+  size: 158, 182
+  orig: 158, 182
+  offset: 0, 0
+  index: -1
+images/player 1/Sphere-[Player-1]_0006_Lower-torso
+  rotate: false
+  xy: 638, 356
+  size: 174, 146
+  orig: 174, 146
+  offset: 0, 0
+  index: -1
 images/player 1/Sphere-[Player-1]_0007_right-foot
   rotate: true
-  xy: 972, 296
+  xy: 521, 146
   size: 87, 39
   orig: 87, 39
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0008_right-calf
   rotate: false
-  xy: 748, 63
+  xy: 966, 372
   size: 54, 130
   orig: 54, 130
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0009_Right-thigh
-  rotate: false
-  xy: 613, 48
+  rotate: true
+  xy: 300, 244
   size: 74, 145
   orig: 74, 145
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0012_Left-thigh
-  rotate: false
-  xy: 613, 48
+  rotate: true
+  xy: 300, 244
   size: 74, 145
   orig: 74, 145
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0010_left-foot
-  rotate: false
-  xy: 919, 143
+  rotate: true
+  xy: 562, 146
   size: 87, 39
   orig: 87, 39
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0011_left-calf
-  rotate: false
-  xy: 804, 63
+  rotate: true
+  xy: 460, 294
   size: 54, 130
   orig: 54, 130
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0013_left-hand
-  rotate: true
-  xy: 860, 2
+  rotate: false
+  xy: 431, 84
   size: 63, 76
   orig: 63, 76
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0014_left-forearm
   rotate: false
-  xy: 911, 257
+  xy: 370, 57
   size: 59, 126
   orig: 59, 126
   offset: 0, 0
   index: -1
 images/player 1/Sphere-[Player-1]_0015_left-upperarm
-  rotate: false
-  xy: 689, 60
+  rotate: true
+  xy: 300, 185
   size: 57, 133
   orig: 57, 133
   offset: 0, 0
