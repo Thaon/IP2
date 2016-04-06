@@ -191,25 +191,6 @@ namespace Ip2
                 }
             }
 
-            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.roundFinished)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (state[j].IsConnected)
-                    {
-                        m_players[j].GetComponent<Player>().m_hAxis = 0;
-                        if (m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
-                        {
-                            if (state[j].Buttons.Start == ButtonState.Pressed)
-                            {
-                                GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.modeSelection;
-                                Application.LoadLevel("GameMode Selection");
-                            }
-                        }
-                    }
-                }
-            }
-
             if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.modeSelection)
             {
                 for (int j = 0; j < 4; j++)
@@ -252,10 +233,30 @@ namespace Ip2
                             m_themeSelected = 3; //colosseum
                         }
 
-                        if (state[j].Buttons.Start == ButtonState.Pressed) //we can finally start the game!
+                        if (state[j].Buttons.Start == ButtonState.Pressed && prevState[j].Buttons.Start == ButtonState.Released) //we can finally start the game!
                         {
+                            print("MS Loading");
                             PersistentData pData = FindObjectOfType(typeof(PersistentData)) as PersistentData;
-                            pData.LoadLevel(m_levelSelected, m_themeSelected);
+                            pData.LoadNewLevel(m_levelSelected, m_themeSelected);
+                        }
+                    }
+                }
+            }
+
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.roundFinished)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (state[j].IsConnected)
+                    {
+                        m_players[j].GetComponent<Player>().m_hAxis = 0;
+                        if (m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
+                        {
+                            if (state[j].Buttons.Start == ButtonState.Pressed)
+                            {
+                                GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state = GameState.modeSelection;
+                                Application.LoadLevel("GameMode Selection");
+                            }
                         }
                     }
                 }

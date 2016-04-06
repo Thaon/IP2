@@ -16,7 +16,7 @@ namespace Ip2
         public int m_winningPlayer = -1;
         public int m_dictator = -1;
 
-        public int m_scoreToWin = 1;
+        public int m_scoreToWin = 2;
 
         public int player1Score = 0;
         public int player2Score = 0;
@@ -66,7 +66,7 @@ namespace Ip2
         {
             if (m_UIControls != null)
             {
-                if (m_state == GameState.game)
+                if (m_state == GameState.game || m_state == GameState.dictatorSelection)
                 {
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = true;
@@ -117,6 +117,12 @@ namespace Ip2
             if (Application.loadedLevel != m_currentLevel) //we check if the level has changed and we update variables accordingly
             {
                 m_UIControls = GameObject.Find("UI Updater");
+
+                m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
+                m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
+                m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
+                m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
+
                 m_currentLevel = Application.loadedLevel;
                 //print("setting dictator from scene transition");
                 SetDictator(m_dictator);
@@ -147,8 +153,9 @@ namespace Ip2
             player4Score = 0;
         }
 
-        public void LoadLevel(int scene, int theme)
+        public void LoadNewLevel(int scene, int theme)
         {
+            print("Loading");
             m_themeSelected = theme;
             GameModeSelector mode = FindObjectOfType(typeof(GameModeSelector)) as GameModeSelector;
             m_roundNumnber++;
@@ -170,6 +177,7 @@ namespace Ip2
                     Application.LoadLevel(mode.m_LVLeft.text);
                 break;
             }
+            m_state = GameState.game;
         }
 
         public void SetDictator(int winningPlayer)
