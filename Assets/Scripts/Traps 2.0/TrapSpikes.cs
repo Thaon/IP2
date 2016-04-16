@@ -40,7 +40,7 @@ namespace Ip2
         public void Activate()
         {
             // If the input button is pressed and the trap is ready, activate it
-            if (Input.GetKeyDown(KeyCode.Y) && !trapIsActive && trapIsReady)
+            if (!trapIsActive && trapIsReady)
             {
                 // Loop through and activate our traps
                 for (int i = 0; i < spikeTraps.Length; i++)

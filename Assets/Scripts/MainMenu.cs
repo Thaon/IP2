@@ -5,7 +5,7 @@ namespace Ip2
 {
     public class MainMenu : MonoBehaviour
     {
-        void Start()
+        void Awake()
         {
             if (!GameObject.Find("PersistentDataGO"))
             {
@@ -14,10 +14,6 @@ namespace Ip2
                 pData.name = "PersistentDataGO";
                 pData.AddComponent<PersistentData>();
             }
-        }
-
-        void Update() {
-
         }
     }
 }

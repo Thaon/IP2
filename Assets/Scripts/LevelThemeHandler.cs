@@ -43,6 +43,9 @@ namespace Ip2
         // Use this for initialization
         void Start()
         {
+            gameBackground = this.gameObject;
+            print(gameBackground == null);
+
             //get the theme selected from the persistent data object
             PersistentData pData = FindObjectOfType(typeof(PersistentData)) as PersistentData;
             themeNumber = pData.m_themeSelected;
@@ -86,7 +89,7 @@ namespace Ip2
             }
 
 
-            gameBackground = GameObject.Find("Background");
+            
 
         }
 
@@ -106,7 +109,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = underwaterTrapTile;
                 }
 
-                gameBackground.GetComponent<Image>().sprite = underwaterBackground;
+                //gameBackground.GetComponent<Image>().sprite = underwaterBackground;
             }
 
             // Tomb Theme is 2
@@ -122,7 +125,8 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = tombTrapTile;
                 }
 
-                gameBackground.GetComponent<Image>().sprite = tombBackground;
+                //print(gameBackground);
+                //gameBackground.GetComponent<Image>().sprite = tombBackground;
             }
 
             // Sky Temple Theme is 3
@@ -138,7 +142,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = skyTrapTile;
                 }
 
-                gameBackground.GetComponent<Image>().sprite = skyBackground;
+                //gameBackground.GetComponent<Image>().sprite = skyBackground;
             }
 
             // Colosseum Theme is 4
@@ -154,7 +158,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = colosseumTrapTile;
                 }
 
-                gameBackground.GetComponent<Image>().sprite = colosseumBackground;
+                //gameBackground.GetComponent<Image>().sprite = colosseumBackground;
             }
         }
     }

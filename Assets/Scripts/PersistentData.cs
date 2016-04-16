@@ -23,11 +23,11 @@ namespace Ip2
         public int player3Score = 0;
         public int player4Score = 0;
 
-        Text m_p1score;
-        Text m_p2score;
-        Text m_p3score;
-        Text m_p4score;
-        Text m_roundNumberInfo;
+        public Text m_p1score;
+        public Text m_p2score;
+        public Text m_p3score;
+        public Text m_p4score;
+        public Text m_roundNumberInfo;
 
         public GameState m_state;
 
@@ -43,7 +43,8 @@ namespace Ip2
             m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
             m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
             m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
-            m_roundNumberInfo = GameObject.Find("Round Info: Round Number").GetComponent<Text>();
+            if (GameObject.Find("Round Info: Round Number") != null)
+                m_roundNumberInfo = GameObject.Find("Round Info: Round Number").GetComponent<Text>();
 
             if (Application.loadedLevel == 0)
             {
@@ -70,12 +71,26 @@ namespace Ip2
                 {
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = true;
+                    m_UIControls.GetComponent<UpdateUI>().showChoiceScreen = false;
 
-                    m_p1score.text = player1Score.ToString();
-                    m_p2score.text = player2Score.ToString();
-                    m_p3score.text = player3Score.ToString();
+
+                    m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
+                    m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
+                    m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
+                    m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
+
+
+                    if (m_p1score != null)
+                        m_p1score.text = player1Score.ToString();
+                    if (m_p2score != null)
+                        m_p2score.text = player2Score.ToString();
+                    if (m_p3score != null)
+                        m_p3score.text = player3Score.ToString();
+                    if (m_p4score != null)
                     m_p4score.text = player4Score.ToString();
-                    m_roundNumberInfo.text = m_roundNumnber.ToString();
+
+                    if (m_roundNumberInfo != null)
+                        m_roundNumberInfo.text = m_roundNumnber.ToString();
 
                     if (m_UIControls.GetComponent<UpdateUI>().roundCountdown <= 0.1f)
                     {
@@ -114,34 +129,7 @@ namespace Ip2
                 }
             }
 
-            if (Application.loadedLevel != m_currentLevel) //we check if the level has changed and we update variables accordingly
-            {
-                m_UIControls = GameObject.Find("UI Updater");
-
-                m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
-                m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
-                m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
-                m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
-
-                m_currentLevel = Application.loadedLevel;
-                //print("setting dictator from scene transition");
-                SetDictator(m_dictator);
-                if (Application.loadedLevel == 0) //we are in the menu, no dictators here
-                {
-                    m_dictator = -1;
-                    m_state = GameState.menu;
-                }
-                //if (Application.loadedLevel == 1)
-                //{
-                //    m_state = GameState.game;
-                //    m_currentLevel = 1;
-                //}
-                //if (Application.loadedLevel == 2)
-                //{
-                //    m_state = GameState.scoreScreen;
-                //    m_currentLevel = 2;
-                //}
-            }
+            
         }
 
         public void ResetData()

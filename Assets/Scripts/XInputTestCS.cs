@@ -127,7 +127,7 @@ namespace Ip2
                             //ACTIVATE GREEN TRAPS
                             if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released) //if we are tapping the button
                             {
-                                    m_greenTraps.Activate();
+                                m_greenTraps.Activate();
                             }
                             //ACTIVATE BLUE TRAPS
                             if (state[i].Buttons.X == ButtonState.Pressed && prevState[i].Buttons.X == ButtonState.Released) //if we are tapping the button

@@ -20,8 +20,14 @@ namespace Ip2
 
         public Text m_LVUp, m_LVRight, m_LVDown, m_LVLeft;
 
+        void Awake()
+        {
+            GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().UpdateLevelData();
+        }
+
         void Start()
         {
+
             m_UIControls = GameObject.Find("UI Updater");
 
             m_totalScenes = new List<List<string>>();

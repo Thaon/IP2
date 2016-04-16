@@ -178,7 +178,9 @@ namespace Ip2
                     //}
                 }
                 else
+                {
                     m_animator.SetBool("moving", false);
+                }
 
                 m_animator.SetBool("jumping", m_isJumping);
                 m_animator.SetBool("falling", m_isFalling);
@@ -209,6 +211,21 @@ namespace Ip2
                 else
                 {
                     m_isOnGround = false;
+                }
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                //GetComponent<Rigidbody2D>().enabled = false;
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<PlayerMovement>().enabled = false;
+                GetComponent<PlayerJump>().enabled = false;
+                GetComponent<PlayerWall>().enabled = false;
+
+                foreach (Transform child in GetComponentsInChildren<Transform>())
+                {
+                    if (child.gameObject != this.gameObject)
+                        child.gameObject.SetActive(false);
                 }
             }
         }
