@@ -109,7 +109,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = underwaterTrapTile;
                 }
 
-                //gameBackground.GetComponent<Image>().sprite = underwaterBackground;
+                gameBackground.GetComponent<Image>().sprite = underwaterBackground;
             }
 
             // Tomb Theme is 2
@@ -126,7 +126,7 @@ namespace Ip2
                 }
 
                 //print(gameBackground);
-                //gameBackground.GetComponent<Image>().sprite = tombBackground;
+                gameBackground.GetComponent<Image>().sprite = tombBackground;
             }
 
             // Sky Temple Theme is 3
@@ -142,7 +142,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = skyTrapTile;
                 }
 
-                //gameBackground.GetComponent<Image>().sprite = skyBackground;
+                gameBackground.GetComponent<Image>().sprite = skyBackground;
             }
 
             // Colosseum Theme is 4
@@ -158,7 +158,7 @@ namespace Ip2
                     trapTile.gameObject.GetComponent<SpriteRenderer>().sprite = colosseumTrapTile;
                 }
 
-                //gameBackground.GetComponent<Image>().sprite = colosseumBackground;
+                gameBackground.GetComponent<Image>().sprite = colosseumBackground;
             }
         }
     }

@@ -11,6 +11,7 @@ namespace Ip2
         public GameObject m_UIControls;
 
         int m_currentLevel;
+        int m_previousLevel;
         public int m_roundNumnber = 0;
 
         public int m_winningPlayer = -1;
@@ -29,6 +30,7 @@ namespace Ip2
         public Text m_p4score;
         public Text m_roundNumberInfo;
 
+        [SerializeField]
         public GameState m_state;
 
         public int m_themeSelected;
@@ -37,70 +39,38 @@ namespace Ip2
         {
             DontDestroyOnLoad(this.gameObject);
 
-            m_UIControls = GameObject.Find("UI Updater");
-
-            m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
-            m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
-            m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
-            m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
-            if (GameObject.Find("Round Info: Round Number") != null)
-                m_roundNumberInfo = GameObject.Find("Round Info: Round Number").GetComponent<Text>();
-
-            if (Application.loadedLevel == 0)
-            {
-                m_state = GameState.menu;
-                m_currentLevel = 0;
-            }
-            //if (Application.loadedLevel == 1)
-            //{
-            //    m_state = GameState.game;
-            //    m_currentLevel = 1;
-            //}
-            //if (Application.loadedLevel == 2)
-            //{
-            //    m_state = GameState.scoreScreen;
-            //    m_currentLevel = 2;
-            //}
+            m_state = GameState.menu;
+            m_currentLevel = 0;
+            m_previousLevel = m_currentLevel;
         }
 
         void Update()
         {
+            //we refresh the referendes here every time we switch scene
+            m_currentLevel = Application.loadedLevel;
+
+            if (m_previousLevel != m_currentLevel)
+            {
+                RefreshReferences();
+                m_previousLevel = m_currentLevel;
+            }
+
             if (m_UIControls != null)
             {
                 if (m_state == GameState.game || m_state == GameState.dictatorSelection)
                 {
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = true;
-                    m_UIControls.GetComponent<UpdateUI>().showChoiceScreen = false;
-
-
-                    m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
-                    m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
-                    m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
-                    m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
-
-
-                    if (m_p1score != null)
-                        m_p1score.text = player1Score.ToString();
-                    if (m_p2score != null)
-                        m_p2score.text = player2Score.ToString();
-                    if (m_p3score != null)
-                        m_p3score.text = player3Score.ToString();
-                    if (m_p4score != null)
-                    m_p4score.text = player4Score.ToString();
+                    m_UIControls.GetComponent<UpdateUI>().showChoiceScreen = false;                     
 
                     if (m_roundNumberInfo != null)
                         m_roundNumberInfo.text = m_roundNumnber.ToString();
 
-                    if (m_UIControls.GetComponent<UpdateUI>().roundCountdown <= 0.1f)
-                    {
-                        //set up a winner here
-                        Application.LoadLevel(2);
-                    }
                 }
 
                 if (m_state == GameState.roundFinished)
                 {
+                    //print("Round finished");
                     m_UIControls.GetComponent<UpdateUI>().showMain = true;
                     m_UIControls.GetComponent<UpdateUI>().countdownActive = false;
                     m_UIControls.GetComponent<UpdateUI>().showRoundWinner = true;
@@ -113,7 +83,6 @@ namespace Ip2
                             if (player.GetComponent<Player>().m_isTheDictator == true)
                             {
                                 player.GetComponent<Player>().SetXSpeed(0);
-                                player.GetComponent<Player>().SetXSpeed(1);
                             }
                         }
                     }
@@ -132,8 +101,24 @@ namespace Ip2
             
         }
 
+        void RefreshReferences() //call this when we switch scene
+        {
+            m_UIControls = GameObject.Find("UI Updater");
+
+            if (GameObject.Find("Player Score: Red"))
+            {
+                m_p1score = GameObject.Find("Player Score: Red").GetComponent<Text>();
+                m_p2score = GameObject.Find("Player Score: Blue").GetComponent<Text>();
+                m_p3score = GameObject.Find("Player Score: Green").GetComponent<Text>();
+                m_p4score = GameObject.Find("Player Score: Yellow").GetComponent<Text>();
+            }
+            if (GameObject.Find("Round Info: Round Number") != null)
+                m_roundNumberInfo = GameObject.Find("Round Info: Round Number").GetComponent<Text>();
+        }
+
         public void ResetData()
         {
+            print("Resetting data");
             m_winningPlayer = -1;
             player1Score = 0;
             player2Score = 0;

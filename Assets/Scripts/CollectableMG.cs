@@ -21,62 +21,69 @@ namespace Ip2
             m_numberOfCoins--;
             if (m_numberOfCoins <= 0)
             {
-                int topScore = 0;
-                int tempPlayer = 0;
-                foreach(CoinMG coinCollector in FindObjectsOfType(typeof(CoinMG)))
-                {
-                    if (coinCollector.m_score > topScore)
-                    {
-                        tempPlayer = coinCollector.m_playerID;
-                        topScore = coinCollector.m_score;
-                    }
-                }
-                GameObject.Find("UI Updater").GetComponent<UpdateUI>().roundWinnerPlayerNumber = tempPlayer;
-
-                m_pData.SetDictator(tempPlayer - 1);
-                m_pData.m_state = GameState.roundFinished;
-
-                //update global player scores
-                switch (tempPlayer - 1) //temp player is 1 based, our case statement is 0 based
-                {
-                    case 0:
-                        m_pData.player1Score++;
-                        if (m_pData.player1Score >= m_pData.m_scoreToWin)
-                        {
-                            m_pData.m_state = GameState.scoreScreen;
-                            Application.LoadLevel("EndScene");
-                        }
-                    break;
-
-                    case 1:
-                        m_pData.player2Score++;
-                        if (m_pData.player2Score >= m_pData.m_scoreToWin)
-                        {
-                            m_pData.m_state = GameState.scoreScreen;
-                            Application.LoadLevel("EndScene");
-                        }
-                    break;
-
-                    case 2:
-                        m_pData.player3Score++;
-                        if (m_pData.player2Score >= m_pData.m_scoreToWin)
-                        {
-                            m_pData.m_state = GameState.scoreScreen;
-                            Application.LoadLevel("EndScene");
-                        }
-                    break;
-
-                    case 3:
-                        m_pData.player4Score++;
-                        if (m_pData.player3Score >= m_pData.m_scoreToWin)
-                        {
-                            m_pData.m_state = GameState.scoreScreen;
-                            Application.LoadLevel("EndScene");
-                        }
-                    break;
-                }
+                DeclareWinner();
             }
         }
 
+        public void DeclareWinner()
+        {
+            int topScore = 0;
+            int tempPlayer = -1;
+            foreach (CoinMG coinCollector in FindObjectsOfType(typeof(CoinMG)))
+            {
+                if (coinCollector.m_score > topScore)
+                {
+                    tempPlayer = coinCollector.m_playerID;
+                    topScore = coinCollector.m_score;
+                    //print(topScore);
+                    print(tempPlayer);
+                }
+            }
+            //print(tempPlayer);
+
+            m_pData.SetDictator(tempPlayer - 1);
+            m_pData.m_state = GameState.roundFinished;
+            m_pData.m_winningPlayer = tempPlayer;
+
+            //update global player scores
+            switch (tempPlayer - 1) //temp player is 1 based, our case statement is 0 based
+            {
+                case 0:
+                m_pData.player1Score++;
+                if (m_pData.player1Score >= m_pData.m_scoreToWin)
+                {
+                    m_pData.m_state = GameState.scoreScreen;
+                    Application.LoadLevel("EndScene");
+                }
+                break;
+
+                case 1:
+                m_pData.player2Score++;
+                if (m_pData.player2Score >= m_pData.m_scoreToWin)
+                {
+                    m_pData.m_state = GameState.scoreScreen;
+                    Application.LoadLevel("EndScene");
+                }
+                break;
+
+                case 2:
+                m_pData.player3Score++;
+                if (m_pData.player2Score >= m_pData.m_scoreToWin)
+                {
+                    m_pData.m_state = GameState.scoreScreen;
+                    Application.LoadLevel("EndScene");
+                }
+                break;
+
+                case 3:
+                m_pData.player4Score++;
+                if (m_pData.player3Score >= m_pData.m_scoreToWin)
+                {
+                    m_pData.m_state = GameState.scoreScreen;
+                    Application.LoadLevel("EndScene");
+                }
+                break;
+            }
+        }
     }
 }

@@ -57,9 +57,9 @@ namespace Ip2
         private bool m_isWallJumping = false;
 
         private GameObject m_respawn;
+        public bool m_hasBeenKilledOnce = false;
 
         public bool m_isTheDictator;
-        public bool m_hasBeenKilledOnce = false;
 
         public int m_uniqueID;
 

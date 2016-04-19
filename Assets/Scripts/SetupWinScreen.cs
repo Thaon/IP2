@@ -40,14 +40,14 @@ namespace Ip2
         }
 
         // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                //reset the persistent variables and go to main menu
-                m_data.ResetData();
-                Application.LoadLevel(0);
-            }
-        }
+        //void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Escape))
+        //    {
+        //        //reset the persistent variables and go to main menu
+        //        m_data.ResetData();
+        //        Application.LoadLevel(0);
+        //    }
+        //}
     }
 }

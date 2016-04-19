@@ -10,7 +10,7 @@ namespace Ip2
 
         public void Spawn()
         {
-            m_player.transform.position = transform.position;
+            m_player.transform.position = transform.position + new Vector3(0, 0, 1);
             m_player.SetActive(true);
         }
 

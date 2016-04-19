@@ -196,11 +196,18 @@ namespace Ip2
 
         Text choiceTimerText;
 
+        // Persistent data
+        PersistentData m_pData;
+        bool m_winnerDeclared = false;
+
         // Use this for initialization
         void Start()
         {
+            //get pData
+            m_pData = GameObject.Find("PersistentDataGO").GetComponent<PersistentData>();
+
             //set round number
-            roundNumber = GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_roundNumnber;
+            roundNumber = m_pData.m_roundNumnber;
 
             // Load and assign the required assets
             modifierLBActiveIcon = Resources.Load<Sprite>("UI/Controller Buttons/ControllerButton_LB_On");
@@ -280,8 +287,15 @@ namespace Ip2
                 else
                 {
                     // - TEMPORARY RESET: REMOVE TO STOP RESET -
-                    roundCountdown = 30;
-
+                    //roundCountdown = 30;
+                    if (FindObjectOfType(typeof(CollectableMG)) && m_winnerDeclared == false)
+                    {
+                        m_winnerDeclared = true;
+                        //print("FOUND!");
+                        CollectableMG mg = FindObjectOfType(typeof(CollectableMG)) as CollectableMG;
+                        mg.DeclareWinner();
+                        winningPlayerNumber = m_pData.m_winningPlayer;
+                    }
                 }
             }
             else
@@ -322,7 +336,8 @@ namespace Ip2
                 else
                 {
                     // - TEMPORARY RESET: REMOVE TO STOP RESET -
-                    roundStartCountdown = 3;
+                    //roundStartCountdown = 3;
+                    //NOTIFY PDATA!!!                                           !!!!!!!!!!!!!!!!!!
                 }
 
 
@@ -355,7 +370,7 @@ namespace Ip2
             }
 
             // WINNER CHECK (UNFINISHED / MISPLACED!)
-            CheckForWinner();
+            //CheckForWinner();
 
             if (PlayerHasBecomeWinner())
             {
@@ -370,6 +385,11 @@ namespace Ip2
         // Used for updating only the player score text
         void UpdatePlayerScoreUI()
         {
+            player1Score = m_pData.player1Score;
+            player2Score = m_pData.player2Score;
+            player3Score = m_pData.player3Score;
+            player4Score = m_pData.player4Score;
+
             player1ScoreText.text = player1Score.ToString();
             player2ScoreText.text = player2Score.ToString();
             player3ScoreText.text = player3Score.ToString();
@@ -463,7 +483,7 @@ namespace Ip2
         // Used for updating the round winner sprites and text based on the winner's player number
         void UpdateRoundWinnerUI()
         {
-
+            roundWinnerPlayerNumber = m_pData.m_winningPlayer;
             if (roundWinnerPlayerNumber == 1)
             {
                 roundWinnerPlayerIcon = player1Icon;
