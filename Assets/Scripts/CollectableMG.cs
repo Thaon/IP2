@@ -41,12 +41,12 @@ namespace Ip2
             }
             //print(tempPlayer);
 
-            m_pData.SetDictator(tempPlayer - 1);
+            m_pData.SetDictator(tempPlayer);
             m_pData.m_state = GameState.roundFinished;
             m_pData.m_winningPlayer = tempPlayer;
 
             //update global player scores
-            switch (tempPlayer - 1) //temp player is 1 based, our case statement is 0 based
+            switch (tempPlayer) //temp player is 1 based, our case statement is 0 based
             {
                 case 0:
                 m_pData.player1Score++;

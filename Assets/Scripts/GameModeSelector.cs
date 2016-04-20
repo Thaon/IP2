@@ -37,7 +37,7 @@ namespace Ip2
             }
 
             //get a selection of scenes according to the minigame
-            int setToSelect = Random.Range(0, m_totalScenes.Count - 1);
+            int setToSelect = Random.Range(0, m_totalScenes.Count);
             List<string> gamemode = m_totalScenes[setToSelect];
             string selection1 = GetRandomScene(gamemode, setToSelect); //up
             string selection2 = GetRandomScene(gamemode, setToSelect); //right

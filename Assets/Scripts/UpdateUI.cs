@@ -286,13 +286,19 @@ namespace Ip2
                 }
                 else
                 {
-                    // - TEMPORARY RESET: REMOVE TO STOP RESET -
-                    //roundCountdown = 30;
+                    //both CollectableMG and CheckpointMG have the same method named DeclareWinner, but they operate differently
                     if (FindObjectOfType(typeof(CollectableMG)) && m_winnerDeclared == false)
                     {
                         m_winnerDeclared = true;
                         //print("FOUND!");
                         CollectableMG mg = FindObjectOfType(typeof(CollectableMG)) as CollectableMG;
+                        mg.DeclareWinner();
+                        winningPlayerNumber = m_pData.m_winningPlayer;
+                    }
+                    if (FindObjectOfType(typeof(CheckpointMG)) && m_winnerDeclared == false)
+                    {
+                        m_winnerDeclared = true;
+                        CheckpointMG mg = FindObjectOfType(typeof(CheckpointMG)) as CheckpointMG;
                         mg.DeclareWinner();
                         winningPlayerNumber = m_pData.m_winningPlayer;
                     }
@@ -353,6 +359,7 @@ namespace Ip2
             if (showChoiceScreen)
             {
                 choiceScreenUI.SetActive(true);
+                UpdateRoundWinnerUI();
                 UpdateChoiceScreen();
 
                 if (choiceTimerCountdown > 0)
@@ -423,6 +430,8 @@ namespace Ip2
             modifierLBText.text = modifierLBString;
             modifierRBText.text = modifierRBString;
 
+            modifierLBSprite.SetActive(false);
+            modifierRBSprite.SetActive(false);
 
             // Change modifier button sprite depending on if it is active or not
             if (modifierLBActive)
@@ -525,6 +534,7 @@ namespace Ip2
 
         void UpdateChoiceScreen()
         {
+            roundWinnerPlayerNumber = m_pData.m_winningPlayer;
             // Since we set the icon and head for round winner, re-use for Dictator Choice header
             newDictatorIconObject.GetComponent<Image>().sprite = roundWinnerPlayerIcon;
             newDictatorHeadObject.GetComponent<Image>().sprite = roundWinnerPlayerHead;

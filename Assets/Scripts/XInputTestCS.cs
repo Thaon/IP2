@@ -222,11 +222,11 @@ namespace Ip2
                         }
                         if (state[j].Buttons.B == ButtonState.Pressed)
                         {
-                            m_themeSelected = 1; //sky temple
+                            m_themeSelected = 2; //sky temple
                         }
                         if (state[j].Buttons.X == ButtonState.Pressed)
                         {
-                            m_themeSelected = 2; //tomb
+                            m_themeSelected = 1; //tomb
                         }
                         if (state[j].Buttons.Y == ButtonState.Pressed)
                         {

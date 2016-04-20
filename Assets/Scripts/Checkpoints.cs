@@ -6,80 +6,67 @@ namespace Ip2
 {
     public class Checkpoints : MonoBehaviour {
 
-        public GameObject m_UI;
+        public GameObject m_P1marker;
+        public GameObject m_P2marker;
+        public GameObject m_P3marker;
+        public GameObject m_P4marker;
+
         bool p1CanCollect = true;
         bool p2CanCollect = true;
         bool p3CanCollect = true;
         bool p4CanCollect = true;
 
+        CheckpointMG m_controller;
+
         void Start()
         {
-            m_UI = GameObject.Find("UI Updater");
+            m_P1marker.SetActive(false);
+            m_P2marker.SetActive(false);
+            m_P3marker.SetActive(false);
+            m_P4marker.SetActive(false);
+
+            m_controller = FindObjectOfType(typeof(CheckpointMG)) as CheckpointMG;
         }
 
-        void Update()
-        {
-            
-        }
         void OnTriggerEnter2D(Collider2D other) {
             if (other.tag == "Player")
             {
                 PersistentData data = GameObject.Find("PersistentDataGO").GetComponent<PersistentData>();
                 switch (other.gameObject.GetComponent<Player>().m_uniqueID)
                 {
-                    case 1:
+                    case 0:
                         if (p1CanCollect)
                     {
-                        data.player1Score++;
-                        m_UI.GetComponent<UpdateUI>().player1Score = data.player1Score;
-                        if (data.player1Score > 4)
-                        {
-                            data.m_winningPlayer = 1;
-                            Application.LoadLevel("Endscene");
-                        }
+                        m_P1marker.SetActive(true);
                         p1CanCollect = false;
+                        m_controller.UpdateFlag(0);
+                    }
+                    break;
+
+                    case 1:
+                    if (p2CanCollect)
+                    {
+                        m_P2marker.SetActive(true);
+                        p2CanCollect = false;
+                        m_controller.UpdateFlag(1);
                     }
                     break;
 
                     case 2:
-                    if (p2CanCollect)
+                    if (p3CanCollect)
                     {
-                        data.player2Score++;
-                        m_UI.GetComponent<UpdateUI>().player2Score = data.player2Score;
-                        if (data.player2Score > 4)
-                        {
-                            data.m_winningPlayer = 2;
-                            Application.LoadLevel("Endscene");
-                        }
-                        p2CanCollect = false;
+                        m_P3marker.SetActive(true);
+                        p3CanCollect = false;
+                        m_controller.UpdateFlag(2);
                     }
                     break;
 
                     case 3:
-                    if (p3CanCollect)
-                    {
-                        data.player3Score++;
-                        m_UI.GetComponent<UpdateUI>().player3Score = data.player3Score;
-                        if (data.player2Score > 4)
-                        {
-                            data.m_winningPlayer = 3;
-                            Application.LoadLevel("Endscene");
-                        }
-                        p3CanCollect = false;
-                    }
-                    break;
-
-                    case 4:
                     if (p4CanCollect)
                     {
-                        data.player4Score++;
-                        m_UI.GetComponent<UpdateUI>().player4Score = data.player4Score;
-                        if (data.player4Score > 4)
-                        {
-                            data.m_winningPlayer = 4;
-                            Application.LoadLevel("Endscene");
-                        }
+                        m_P4marker.SetActive(true);
                         p4CanCollect = false;
+                        m_controller.UpdateFlag(3);
                     }
                     break;
                 }

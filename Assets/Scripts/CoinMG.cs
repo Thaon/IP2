@@ -10,6 +10,8 @@ namespace Ip2
         public int m_score;
         public int m_playerID;
 
+        public AudioClip m_pickup;
+
         private CollectableMG m_collMG;
 
         void Start()
@@ -25,6 +27,7 @@ namespace Ip2
                 //notify CollectableMG and make the coin disappear 
                 m_score++;
                 m_collMG.UpdateCoins();
+                GetComponent<AudioSource>().PlayOneShot(m_pickup);
                 other.gameObject.SetActive(false); //not using Destroy cause it would invoke the garbage collector
             }
         }

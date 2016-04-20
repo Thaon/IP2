@@ -96,8 +96,8 @@ namespace Ip2
         public void SwitchLevelSprites(int themeValue)
         {
 
-            // Underwater Theme is 1
-            if (themeValue == 1)
+            // Underwater Theme is 0
+            if (themeValue == 0)
             {
                 foreach (GameObject normalTile in normalTiles)
                 {
@@ -112,8 +112,8 @@ namespace Ip2
                 gameBackground.GetComponent<Image>().sprite = underwaterBackground;
             }
 
-            // Tomb Theme is 2
-            if (themeValue == 2)
+            // Tomb Theme is 1
+            if (themeValue == 1)
             {
                 foreach (GameObject normalTile in normalTiles)
                 {
@@ -129,8 +129,8 @@ namespace Ip2
                 gameBackground.GetComponent<Image>().sprite = tombBackground;
             }
 
-            // Sky Temple Theme is 3
-            if (themeValue == 3)
+            // Sky Temple Theme is 2
+            if (themeValue == 2)
             {
                 foreach (GameObject normalTile in normalTiles)
                 {
@@ -145,8 +145,8 @@ namespace Ip2
                 gameBackground.GetComponent<Image>().sprite = skyBackground;
             }
 
-            // Colosseum Theme is 4
-            if (themeValue == 4)
+            // Colosseum Theme is 3
+            if (themeValue == 3)
             {
                 foreach (GameObject normalTile in normalTiles)
                 {

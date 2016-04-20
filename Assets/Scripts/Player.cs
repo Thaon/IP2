@@ -63,11 +63,22 @@ namespace Ip2
 
         public int m_uniqueID;
 
+        public AudioClip m_jump;
+
         #endregion
 
         // Use this for initialization
         void Start()
         {
+            if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_dictator == m_uniqueID)
+            {
+                m_isTheDictator = true;
+            }
+            else
+            {
+                m_isTheDictator = false;
+            }
+
             if (!m_isTheDictator)
             {
                 //generate the respawn object
@@ -83,15 +94,6 @@ namespace Ip2
                 m_gravityScale = m_rigidbody.gravityScale;
 
                 m_surfaces = LayerMask.GetMask("surfaces");
-
-                if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_dictator == m_uniqueID)
-                {
-                    m_isTheDictator = true;
-                }
-                else
-                {
-                    m_isTheDictator = false;
-                }
 
                 // Check which direction the player is facing based on the spriteDirection and flip when the spriteDirection is Left.
                 if (m_direction == Dir.e_right)
@@ -266,6 +268,7 @@ namespace Ip2
         {
             if (m_pJump.m_pressingJumpBtn)
             {
+                GetComponent<AudioSource>().PlayOneShot(m_jump);
                 m_pJump.Jump();
             }
         }
