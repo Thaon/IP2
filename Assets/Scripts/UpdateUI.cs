@@ -432,6 +432,8 @@ namespace Ip2
 
             modifierLBSprite.SetActive(false);
             modifierRBSprite.SetActive(false);
+            modifierRBTextObject.SetActive(false);
+            modifierLBTextObject.SetActive(false);
 
             // Change modifier button sprite depending on if it is active or not
             if (modifierLBActive)
