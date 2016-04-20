@@ -350,9 +350,9 @@ namespace Ip2
             }
             else
             {
-                gamemodeTextObject.SetActive(false);
                 gamemodeDescriptionTextObject.SetActive(false);
                 roundStartCountdownTextObject.SetActive(false);
+                gamemodeTextObject.SetActive(false);
             }
 
             // Update choice screen if canvas is active
@@ -559,6 +559,72 @@ namespace Ip2
             //modifierHText.text = "MODIFIER H*";
 
             choiceTimerText.text = "TIME REMAINING: " + choiceTimerCountdown.ToString("0.0");
+        }
+
+        public void UpdateSelection()
+        {
+            XInputTestCS input = FindObjectOfType(typeof(XInputTestCS)) as XInputTestCS;
+            switch (input.m_levelSelected)
+            {
+                case 1:
+                gamemodeChoiceAText.color = orangeAlert;
+                gamemodeChoiceDText.color = nonTransparent;
+                gamemodeChoiceBText.color = nonTransparent;
+                gamemodeChoiceCText.color = nonTransparent;
+                break;
+
+                case 2:
+                gamemodeChoiceAText.color = nonTransparent;
+                gamemodeChoiceDText.color = nonTransparent;
+                gamemodeChoiceBText.color = orangeAlert;
+                gamemodeChoiceCText.color = nonTransparent;
+                break;
+
+                case 3:
+                gamemodeChoiceAText.color = nonTransparent;
+                gamemodeChoiceDText.color = nonTransparent;
+                gamemodeChoiceBText.color = nonTransparent;
+                gamemodeChoiceCText.color = orangeAlert;
+                break;
+
+                case 4:
+                gamemodeChoiceAText.color = nonTransparent;
+                gamemodeChoiceDText.color = orangeAlert;
+                gamemodeChoiceBText.color = nonTransparent;
+                gamemodeChoiceCText.color = nonTransparent;
+                break;
+            }
+
+            switch (input.m_themeSelected)
+            {
+                case 0:
+                    modifierBText.color = nonTransparent;
+                    modifierGText.color = nonTransparent;
+                    modifierEText.color = orangeAlert;
+                    modifierCText.color = nonTransparent;
+                break;
+
+                case 1: //desert/tomb
+                    modifierBText.color = nonTransparent;
+                    modifierGText.color = orangeAlert;
+                    modifierEText.color = nonTransparent;
+                    modifierCText.color = nonTransparent;
+                break;
+
+                case 2: //sky temple
+                    modifierBText.color = nonTransparent;
+                    modifierGText.color = nonTransparent;
+                    modifierEText.color = nonTransparent;
+                    modifierCText.color = orangeAlert;
+                break;
+
+                case 3: //colosseum
+                    modifierBText.color = orangeAlert;
+                    modifierGText.color = nonTransparent;
+                    modifierEText.color = nonTransparent;
+                    modifierCText.color = nonTransparent;
+                break;
+            }
         }
 
         // Checks if a player has reached the target score then assigns the winning player number accordingly

@@ -56,7 +56,7 @@ namespace Ip2
                     spikeTrapButtons[i].gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
 
-                gameObject.GetComponent<AudioSource>().PlayOneShot(trapSpikesSoundEffect);
+                //gameObject.GetComponent<AudioSource>().PlayOneShot(trapSpikesSoundEffect);
 
                 trapIsActive = true;
                 trapIsReady = false;

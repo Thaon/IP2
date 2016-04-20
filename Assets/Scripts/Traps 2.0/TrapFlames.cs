@@ -54,7 +54,7 @@ namespace Ip2
                     flameTrapButtons[i].gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
 
-                gameObject.GetComponent<AudioSource>().PlayOneShot(trapFlamesSoundEffect);
+                //gameObject.GetComponent<AudioSource>().PlayOneShot(trapFlamesSoundEffect);
 
                 trapIsActive = true;
                 trapIsReady = false;

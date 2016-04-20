@@ -28,7 +28,8 @@ namespace Ip2
         public GameObject[] m_players;
 
         //setting up two variables for the mode selection screen
-        int m_levelSelected, m_themeSelected;
+        public int m_levelSelected = 1;
+        public int m_themeSelected = 0;
 
         // Use this for initialization
         void Start()
@@ -193,6 +194,7 @@ namespace Ip2
 
             if (GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_state == GameState.modeSelection)
             {
+                UpdateUI ui = FindObjectOfType(typeof(UpdateUI)) as UpdateUI;
                 for (int j = 0; j < 4; j++)
                 {
                     if (state[j].IsConnected && m_players[j].GetComponent<Player>().m_isTheDictator) //only the dictator can choose
@@ -232,6 +234,8 @@ namespace Ip2
                         {
                             m_themeSelected = 3; //colosseum
                         }
+
+                        ui.UpdateSelection();
 
                         if (state[j].Buttons.Start == ButtonState.Pressed && prevState[j].Buttons.Start == ButtonState.Released) //we can finally start the game!
                         {

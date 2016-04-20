@@ -41,7 +41,7 @@ namespace Ip2
             }
             m_pData.SetDictator(winner);
             m_pData.m_state = GameState.roundFinished;
-            m_pData.m_winningPlayer = winner;
+            m_pData.m_winningPlayer = winner + 1;
 
             //update global player scores
             switch (winner) //temp player is 1 based, our case statement is 0 based
@@ -66,7 +66,7 @@ namespace Ip2
 
                 case 2:
                 m_pData.player3Score++;
-                if (m_pData.player2Score >= m_pData.m_scoreToWin)
+                if (m_pData.player3Score >= m_pData.m_scoreToWin)
                 {
                     m_pData.m_state = GameState.scoreScreen;
                     Application.LoadLevel("EndScene");
@@ -75,7 +75,7 @@ namespace Ip2
 
                 case 3:
                 m_pData.player4Score++;
-                if (m_pData.player3Score >= m_pData.m_scoreToWin)
+                if (m_pData.player4Score >= m_pData.m_scoreToWin)
                 {
                     m_pData.m_state = GameState.scoreScreen;
                     Application.LoadLevel("EndScene");

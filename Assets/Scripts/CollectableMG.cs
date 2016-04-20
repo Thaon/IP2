@@ -43,7 +43,7 @@ namespace Ip2
 
             m_pData.SetDictator(tempPlayer);
             m_pData.m_state = GameState.roundFinished;
-            m_pData.m_winningPlayer = tempPlayer;
+            m_pData.m_winningPlayer = tempPlayer + 1;
 
             //update global player scores
             switch (tempPlayer) //temp player is 1 based, our case statement is 0 based

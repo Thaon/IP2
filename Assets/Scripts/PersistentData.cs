@@ -17,7 +17,7 @@ namespace Ip2
         public int m_winningPlayer = -1;
         public int m_dictator = -1;
 
-        public int m_scoreToWin = 2;
+        public int m_scoreToWin = 5;
 
         public int player1Score = 0;
         public int player2Score = 0;
@@ -64,7 +64,7 @@ namespace Ip2
                     m_UIControls.GetComponent<UpdateUI>().showChoiceScreen = false;                     
 
                     if (m_roundNumberInfo != null)
-                        m_roundNumberInfo.text = m_roundNumnber.ToString();
+                        m_roundNumberInfo.text = "ROUND " + m_roundNumnber.ToString();
 
                 }
 

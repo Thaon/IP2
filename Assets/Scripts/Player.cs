@@ -328,7 +328,7 @@ namespace Ip2
             transform.position = m_respawn.transform.position;
             if (!m_hasBeenKilledOnce)
             {
-                switch(m_uniqueID)
+                switch(GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().m_dictator)
                 {
                     case 0:
                     GameObject.Find("PersistentDataGO").GetComponent<PersistentData>().player1Score++;
